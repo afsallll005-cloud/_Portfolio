@@ -17,7 +17,7 @@ const nextConfig = {
     return [
       {
         source: "/api/:path*",
-        destination: "https://portfolio-three-hazel-a62b0relg0.vercel.app/api/:path*",
+        destination: "https://portfolio-nu-ten-27.vercel.app/api/:path*",
       },
     ];
   },

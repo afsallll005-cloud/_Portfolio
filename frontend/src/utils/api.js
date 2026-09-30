@@ -1,5 +1,5 @@
 // Production backend deployed on Vercel
-const DEFAULT_PRODUCTION_BACKEND = "https://portfolio-three-hazel-a62b0relg0.vercel.app/api";
+const DEFAULT_PRODUCTION_BACKEND = "https://portfolio-nu-ten-27.vercel.app/api";
 
 const normalizeApiUrl = (url) => {
   if (!url) return "";
