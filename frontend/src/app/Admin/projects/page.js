@@ -28,7 +28,7 @@ export default function ProjectsAdmin() {
       }
     } catch (err) {
       console.error("Failed to fetch projects", err);
-      setError("Could not connect to backend server. Make sure your server is running on port 5000.");
+      setError(`Could not connect to backend API (${API_BASE_URL}). Make sure your backend server is running.`);
       setProjects([]);
     } finally {
       setLoading(false);

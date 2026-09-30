@@ -57,7 +57,11 @@ export default function AdminDashboard() {
         if (Array.isArray(data)) contacts = data;
       }
 
-      const isConnected = !!(projectsRes || skillsRes || contactsRes);
+      const isConnected = !!(
+        (projectsRes && projectsRes.ok) ||
+        (skillsRes && skillsRes.ok) ||
+        (contactsRes && contactsRes.ok)
+      );
       setServerOnline(isConnected);
 
       // Automatic placement: first 4 in main grid, remaining in load more
@@ -121,8 +125,10 @@ export default function AdminDashboard() {
           <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
             <FiAlertCircle size={20} />
             <span>
-              <strong>Cannot connect to backend API ({API_BASE_URL}).</strong> Make sure your
-              Node.js backend server is running on port 5000 and MongoDB is connected.
+              <strong>Cannot connect to backend API ({API_BASE_URL}).</strong>{" "}
+              {API_BASE_URL.includes("localhost")
+                ? "Make sure your Node.js backend server is running on port 5000 and MongoDB is connected."
+                : "Make sure your Vercel backend server is deployed and MongoDB Atlas Network Access allows connections from anywhere (0.0.0.0/0)."}
             </span>
           </div>
         </div>
