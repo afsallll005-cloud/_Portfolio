@@ -30,9 +30,11 @@ export default function AdminDashboard() {
   const [recentContacts, setRecentContacts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [serverOnline, setServerOnline] = useState(null); // true | false | null
+  const [serverErrorDetails, setServerErrorDetails] = useState(null);
 
   const fetchDashboardData = async () => {
     setLoading(true);
+    setServerErrorDetails(null);
     try {
       const [projectsRes, skillsRes, contactsRes] = await Promise.all([
         fetch(`${API_BASE_URL}/projects`).catch(() => null),
@@ -63,6 +65,21 @@ export default function AdminDashboard() {
         (contactsRes && contactsRes.ok)
       );
       setServerOnline(isConnected);
+
+      if (!isConnected) {
+        let errorMsg = null;
+        if (projectsRes && !projectsRes.ok) {
+          try {
+            const errJson = await projectsRes.json();
+            errorMsg = errJson.details || errJson.message || `HTTP ${projectsRes.status}`;
+          } catch (_) {
+            errorMsg = `HTTP ${projectsRes.status}`;
+          }
+        } else if (!projectsRes) {
+          errorMsg = "Network request failed. Backend may be offline or CORS blocked.";
+        }
+        setServerErrorDetails(errorMsg);
+      }
 
       // Automatic placement: first 4 in main grid, remaining in load more
       const mainCount = Math.min(projects.length, 4);
@@ -121,7 +138,7 @@ export default function AdminDashboard() {
       </div>
 
       {serverOnline === false && (
-        <div className="alert-banner error">
+        <div className="alert-banner error" style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
             <FiAlertCircle size={20} />
             <span>
@@ -131,6 +148,11 @@ export default function AdminDashboard() {
                 : "Make sure your Vercel backend server is deployed and MongoDB Atlas Network Access allows connections from anywhere (0.0.0.0/0)."}
             </span>
           </div>
+          {serverErrorDetails && (
+            <div style={{ marginLeft: "30px", fontSize: "0.85rem", opacity: 0.95, background: "rgba(0,0,0,0.15)", padding: "6px 10px", borderRadius: "6px", wordBreak: "break-all" }}>
+              <strong>Error Details:</strong> {serverErrorDetails}
+            </div>
+          )}
         </div>
       )}
 
