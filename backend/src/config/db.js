@@ -4,15 +4,20 @@ let isConnected = false;
 
 const connectDB = async () => {
   // If already connected, reuse existing connection
-  if (isConnected && mongoose.connection.readyState >= 1) {
+  if (mongoose.connection.readyState >= 1) {
+    isConnected = true;
     return;
   }
 
-  const uri = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/portfolio';
+  const uri = process.env.MONGODB_URI;
+  if (!uri) {
+    isConnected = false;
+    throw new Error('MONGODB_URI is missing in Vercel project environment variables.');
+  }
 
   try {
     const conn = await mongoose.connect(uri, {
-      serverSelectionTimeoutMS: 5000,
+      serverSelectionTimeoutMS: 8000,
     });
     isConnected = true;
     console.log(`MongoDB Connected: ${conn.connection.host}`);
