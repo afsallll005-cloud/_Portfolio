@@ -1,0 +1,349 @@
+.footer-section {
+  position: relative;
+  width: 100%;
+  padding: 80px 40px 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #010101;
+  color: #ffffff;
+}
+
+.footer-container {
+  width: 100%;
+  max-width: 1500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 70px;
+}
+
+/* TOP SOCIAL ROW (80x80px boxes) */
+.footer-social-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.footer-social-box {
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  text-decoration: none;
+  transition: background-color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.3s ease,
+              transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.social-box-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.footer-social-box:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-3px);
+}
+
+.footer-social-box:hover .social-box-icon {
+  transform: scale(1.15);
+}
+
+/* MASSIVE CTA: LET'S TALK */
+.footer-cta-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.footer-lets-talk {
+  display: inline-flex;
+  align-items: center;
+  gap: 24px;
+  padding-bottom: 12px;
+  border-bottom: 4px solid #ffffff;
+  background: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  color: #ffffff;
+  cursor: pointer;
+  text-decoration: none;
+  transition: border-color 0.3s ease, transform 0.2s ease;
+}
+
+.lets-talk-track {
+  position: relative;
+  display: block;
+  height: 96px;
+  overflow: hidden;
+}
+
+.lets-talk-text {
+  display: block;
+  font-family: var(--font-switzer);
+  font-size: 80px;
+  font-weight: 500;
+  line-height: 96px;
+  letter-spacing: -1px;
+  color: #ffffff;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.lets-talk-hover {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  color: var(--text-secondary);
+}
+
+.lets-talk-arrow {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.lets-talk-arrow svg {
+  width: 72px;
+  height: 72px;
+}
+
+.footer-lets-talk:hover .lets-talk-text:first-child {
+  transform: translateY(-100%);
+}
+
+.footer-lets-talk:hover .lets-talk-hover {
+  transform: translateY(-100%);
+}
+
+.footer-lets-talk:hover .lets-talk-arrow {
+  transform: translate(6px, -6px);
+}
+
+/* BOTTOM BAR */
+.footer-bottom-bar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 40px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-email .email-link {
+  font-family: var(--font-switzer);
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: -0.5px;
+  color: #ffffff;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.footer-email .email-link:hover {
+  opacity: 0.6;
+}
+
+.footer-copyright p {
+  font-family: var(--font-switzer);
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+
+/* CONTACT MODAL */
+.contact-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+  background-color: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  animation: fadeIn 0.3s ease;
+}
+
+.contact-modal-dialog {
+  position: relative;
+  background-color: #121212;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  width: 100%;
+  max-width: 540px;
+  padding: 40px;
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.8);
+  animation: modalScale 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.modal-close:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.contact-modal-title {
+  font-family: var(--font-switzer);
+  font-size: 32px;
+  font-weight: 600;
+  color: #ffffff;
+  letter-spacing: -0.6px;
+}
+
+.contact-modal-sub {
+  font-size: 15px;
+  color: var(--text-secondary);
+  margin-top: 8px;
+  margin-bottom: 24px;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  background-color: #1c1c1c;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  padding: 12px 16px;
+  color: #ffffff;
+  font-family: var(--font-switzer);
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #ffffff;
+}
+
+.contact-submit-btn {
+  margin-top: 8px;
+  padding: 14px;
+  background-color: #ffffff;
+  color: #000000;
+  border-radius: 8px;
+  font-family: var(--font-switzer);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.contact-submit-btn:hover {
+  opacity: 0.85;
+}
+
+.form-success-message {
+  padding: 30px 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.success-icon {
+  width: 50px;
+  height: 50px;
+  background-color: #2467e3;
+  color: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+/* RESPONSIVE */
+@media (max-width: 809px) {
+  .footer-section {
+    padding: 60px 20px 40px;
+  }
+
+  .footer-container {
+    gap: 48px;
+  }
+
+  .footer-social-box {
+    width: 60px;
+    height: 60px;
+  }
+
+  .lets-talk-track {
+    height: 56px;
+  }
+
+  .lets-talk-text {
+    font-size: 44px;
+    line-height: 56px;
+  }
+
+  .lets-talk-arrow {
+    width: 48px;
+    height: 48px;
+  }
+
+  .lets-talk-arrow svg {
+    width: 40px;
+    height: 40px;
+  }
+
+  .footer-bottom-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+  }
+
+  .contact-modal-dialog {
+    padding: 28px 20px;
+  }
+}

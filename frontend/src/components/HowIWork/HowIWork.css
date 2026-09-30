@@ -1,0 +1,415 @@
+/* =========================================================
+   HOW I WORK (MY PROCESS)
+   Clean, Modern, and Fully Responsive Component Styles
+========================================================= */
+
+.how-work-section {
+  position: relative;
+  width: 100%;
+  padding: 100px 40px;
+  display: flex;
+  justify-content: center;
+  background-color: #010101;
+  color: #ffffff;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.how-work-container {
+  width: 100%;
+  max-width: 1500px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  box-sizing: border-box;
+
+  /* Responsive layout variables */
+  --cards-visible: 3;
+  --card-gap: 24px;
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.how-work-header {
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+.how-work-header-text {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 680px;
+}
+
+.how-work-eyebrow {
+  margin: 0;
+  font-family: var(--font-switzer, inherit);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.how-work-title {
+  margin: 0;
+  font-family: var(--font-switzer, inherit);
+  font-size: clamp(38px, 4.8vw, 56px);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -1.2px;
+  color: #ffffff;
+}
+
+.how-work-description {
+  margin: 0;
+  font-family: var(--font-switzer, inherit);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.58);
+}
+
+/* =========================================================
+   CONTROLS (NAV BUTTONS)
+========================================================= */
+
+.how-work-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.work-carousel-btn {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  outline: none;
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.work-carousel-btn:hover {
+  background-color: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.28);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+.work-carousel-btn:active {
+  transform: scale(0.94);
+}
+
+.work-carousel-btn:focus-visible {
+  border-color: #ffffff;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
+}
+
+/* =========================================================
+   CAROUSEL VIEWPORT & TRACK
+========================================================= */
+
+.how-work-viewport {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  border-radius: 12px;
+  touch-action: pan-y;
+  cursor: grab;
+}
+
+.how-work-viewport:active {
+  cursor: grabbing;
+}
+
+.how-work-track {
+  display: flex;
+  gap: var(--card-gap);
+  transform: translateX(
+    calc(
+      -1 * var(--current-index, 0) * ((100% + var(--card-gap)) / var(--cards-visible))
+    )
+  );
+  transition: transform 0.52s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+/* =========================================================
+   STEP CARD
+========================================================= */
+
+.work-step-card {
+  flex: 0 0 calc((100% - (var(--cards-visible) - 1) * var(--card-gap)) / var(--cards-visible));
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.work-step-inner {
+  position: relative;
+  min-height: 330px;
+  padding: 32px 28px;
+  border-radius: 12px;
+  background: linear-gradient(180deg, #181818 0%, #121212 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  box-sizing: border-box;
+  transition:
+    transform 0.35s ease,
+    border-color 0.35s ease,
+    background 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.work-step-inner:hover {
+  transform: translateY(-6px);
+  border-color: rgba(255, 255, 255, 0.22);
+  background: linear-gradient(180deg, #1e1e1e 0%, #161616 100%);
+  box-shadow:
+    0 16px 36px rgba(0, 0, 0, 0.5),
+    0 0 20px rgba(255, 255, 255, 0.02);
+}
+
+/* TOP ROW */
+.work-step-top {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+
+.work-step-number {
+  font-family: var(--font-switzer, inherit);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.work-step-line {
+  height: 1px;
+  flex: 1;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.02));
+}
+
+/* CONTENT */
+.work-step-content {
+  margin: 24px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.work-step-content h3 {
+  margin: 0;
+  font-family: var(--font-switzer, inherit);
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.7px;
+  color: #ffffff;
+}
+
+.work-step-content p {
+  margin: 0;
+  font-family: var(--font-switzer, inherit);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.58);
+}
+
+/* ARROW BADGE */
+.work-step-arrow {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.65);
+  transition:
+    transform 0.3s ease,
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease;
+  align-self: flex-start;
+}
+
+.work-step-inner:hover .work-step-arrow {
+  transform: translateX(5px);
+  background-color: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
+/* =========================================================
+   STEP INDICATORS (PAGINATION DOTS)
+========================================================= */
+
+.how-work-indicators {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.work-indicator {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  outline: none;
+  transition:
+    width 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    border-radius 0.3s ease,
+    background-color 0.3s ease;
+}
+
+.work-indicator:hover {
+  background-color: rgba(255, 255, 255, 0.45);
+}
+
+.work-indicator.active {
+  width: 28px;
+  border-radius: 20px;
+  background-color: #ffffff;
+}
+
+.work-indicator:focus-visible {
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5);
+}
+
+/* =========================================================
+   RESPONSIVE BREAKPOINTS
+========================================================= */
+
+/* TABLET (641px - 1024px) */
+@media (max-width: 1024px) {
+  .how-work-section {
+    padding: 85px 32px;
+  }
+
+  .how-work-container {
+    --cards-visible: 2;
+    --card-gap: 20px;
+    gap: 32px;
+  }
+
+  .how-work-title {
+    font-size: 46px;
+  }
+
+  .work-step-inner {
+    min-height: 310px;
+    padding: 26px 22px;
+  }
+
+  .work-step-content h3 {
+    font-size: 26px;
+  }
+}
+
+/* MOBILE (<= 640px) */
+@media (max-width: 640px) {
+  .how-work-section {
+    padding: 65px 20px;
+  }
+
+  .how-work-container {
+    --cards-visible: 1;
+    --card-gap: 16px;
+    gap: 28px;
+  }
+
+  .how-work-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .how-work-controls {
+    align-self: flex-end;
+  }
+
+  .how-work-title {
+    font-size: 36px;
+    letter-spacing: -0.8px;
+  }
+
+  .how-work-description {
+    font-size: 15px;
+  }
+
+  .work-carousel-btn {
+    width: 42px;
+    height: 42px;
+  }
+
+  .work-step-inner {
+    min-height: 280px;
+    padding: 24px 20px;
+  }
+
+  .work-step-content h3 {
+    font-size: 24px;
+  }
+
+  .work-step-content p {
+    font-size: 14px;
+  }
+}
+
+/* SMALL MOBILE (<= 400px) */
+@media (max-width: 400px) {
+  .how-work-section {
+    padding: 55px 16px;
+  }
+
+  .how-work-title {
+    font-size: 32px;
+  }
+
+  .work-step-inner {
+    padding: 22px 18px;
+    min-height: 270px;
+  }
+}
+
+/* REDUCED MOTION */
+@media (prefers-reduced-motion: reduce) {
+  .how-work-track,
+  .work-step-inner,
+  .work-carousel-btn,
+  .work-indicator,
+  .work-step-arrow {
+    transition: none !important;
+  }
+}

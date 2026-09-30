@@ -1,0 +1,259 @@
+.about-section {
+  position: relative;
+  width: 100%;
+  padding: 80px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #010101;
+  color: #ffffff;
+}
+
+.about-container {
+  width: 100%;
+  max-width: 1500px;
+  display: flex;
+  flex-direction: column;
+}
+
+.about-content-wrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 160px;
+}
+
+/* LEFT COLUMN */
+.about-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.about-heading-wrap {
+  width: 100%;
+}
+
+.about-heading {
+  font-family: var(--font-switzer);
+  font-size: 60px;
+  font-weight: 500;
+  line-height: 100%;
+  letter-spacing: -0.7px;
+  color: #ffffff;
+}
+
+.about-text-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 600px;
+}
+
+.about-text-content p {
+  font-family: var(--font-switzer);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 140%;
+  letter-spacing: 0px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.about-text-content strong {
+  font-weight: 700;
+  color: #ffffff;
+}
+
+/* ACTIONS ROW */
+.about-actions-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 600px;
+  margin-top: 10px;
+}
+
+.about-resume-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 16px;
+  height: 38px;
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  border-radius: 20px;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: -0.4px;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: background-color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.3s ease;
+}
+
+.about-resume-track {
+  position: relative;
+  display: block;
+  height: 16px;
+  overflow: hidden;
+}
+
+.about-resume-text {
+  display: block;
+  height: 16px;
+  line-height: 16px;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.about-resume-hover {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  color: #000000;
+}
+
+.about-resume-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.about-resume-btn:hover {
+  background-color: #ffffff;
+  color: #000000;
+  border-color: #ffffff;
+}
+
+.about-resume-btn:hover .about-resume-text:first-child {
+  transform: translateY(-100%);
+}
+
+.about-resume-btn:hover .about-resume-hover {
+  transform: translateY(-100%);
+}
+
+.about-resume-btn:hover .about-resume-arrow {
+  transform: translateX(3px);
+  color: #000000;
+}
+
+/* SOCIALS */
+.about-socials {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.social-roll-link {
+  position: relative;
+  display: block;
+  height: 20px;
+  overflow: hidden;
+  font-family: var(--font-switzer);
+  font-size: 16px;
+  font-weight: 500;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.social-roll-track {
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.social-roll-track span {
+  display: block;
+  height: 20px;
+  line-height: 20px;
+}
+
+.social-roll-track span:last-child {
+  color: var(--text-secondary);
+}
+
+.social-roll-link:hover .social-roll-track {
+  transform: translateY(-20px);
+}
+
+/* RIGHT COLUMN IMAGE */
+.about-right {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.about-image-figure {
+  width: 100%;
+  max-width: 600px;
+  aspect-ratio: 1.057;
+  border-radius: 4px;
+  overflow: hidden;
+  background-color: #121212;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+}
+
+.about-portrait-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.about-image-figure:hover .about-portrait-img {
+  transform: scale(1.03);
+}
+
+/* TABLET */
+@media (max-width: 1199px) and (min-width: 810px) {
+  .about-content-wrapper {
+    gap: 60px;
+  }
+
+  .about-heading {
+    font-size: 50px;
+  }
+}
+
+/* MOBILE */
+@media (max-width: 809px) {
+  .about-section {
+    padding: 60px 20px;
+  }
+
+  .about-content-wrapper {
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .about-left {
+    order: 2;
+    gap: 30px;
+  }
+
+  .about-right {
+    order: 1;
+    width: 100%;
+  }
+
+  .about-heading {
+    font-size: 40px;
+  }
+
+  .about-text-content p {
+    font-size: 16px;
+  }
+
+  .about-actions-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+}

@@ -1,0 +1,952 @@
+/* =========================================================
+   HERO SECTION
+========================================================= */
+
+.hero-section {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100svh;
+
+  padding: 110px 40px 35px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+
+  overflow: hidden;
+
+  background: #010101;
+  color: #ffffff;
+
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   CANVAS SHADER BACKGROUND
+========================================================= */
+
+.hero-canvas-container {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  z-index: 0;
+
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.hero-shader-canvas {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   HERO CONTAINER
+========================================================= */
+
+.hero-container {
+  position: relative;
+  z-index: 2;
+
+  width: 100%;
+  max-width: 1500px;
+
+  min-height: calc(100svh - 145px);
+
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: space-between;
+  align-items: flex-end;
+
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   PROFILE IMAGE WRAPPER
+========================================================= */
+
+.hero-profile-wrapper {
+  width: auto;
+
+  margin-top: 10px;
+  margin-right: 15px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  flex-shrink: 0;
+}
+
+
+/* =========================================================
+   PROFILE CARD
+========================================================= */
+
+.hero-profile-card {
+  position: relative;
+
+  width: 250px;
+  height: 280px;
+
+  overflow: hidden;
+
+  border-radius: 4px;
+
+  border: 1px solid rgba(255, 255, 255, 0.15);
+
+  background: #080808;
+
+  transform: none;
+
+  box-shadow:
+    0 30px 60px rgba(0, 0, 0, 0.8),
+    0 0 40px rgba(36, 103, 227, 0.2);
+
+  animation: none;
+  transition: none;
+
+  will-change: auto;
+
+  flex-shrink: 0;
+}
+
+
+/* =========================================================
+   PROFILE CARD HOVER
+========================================================= */
+
+.hero-profile-card:hover {
+  transform: none;
+
+  box-shadow:
+    0 30px 60px rgba(0, 0, 0, 0.8),
+    0 0 40px rgba(36, 103, 227, 0.2);
+}
+
+
+/* =========================================================
+   PROFILE IMAGE
+========================================================= */
+
+.hero-profile-img {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  object-position: center center;
+
+  transform: none;
+
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+
+/* =========================================================
+   TEXT WRAPPER
+========================================================= */
+
+.hero-text-wrapper {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: flex-start;
+
+  gap: 14px;
+
+  margin-bottom: 0;
+}
+
+
+/* =========================================================
+   SUBTITLE
+========================================================= */
+
+.hero-subtitle {
+  width: 100%;
+  max-width: 430px;
+}
+
+.hero-subtitle h2 {
+  margin: 0;
+  padding: 0;
+
+  font-family: var(--font-switzer);
+
+  font-size: clamp(20px, 2.2vw, 30px);
+
+  font-weight: 500;
+
+  line-height: 1.2;
+
+  letter-spacing: -0.7px;
+
+  color: #ffffff;
+}
+
+
+/* =========================================================
+   MAIN TITLE
+========================================================= */
+
+.hero-main-title {
+  width: 100%;
+
+  overflow: visible;
+}
+
+.hero-main-title h1 {
+  width: 100%;
+
+  margin: 0;
+  padding: 0;
+
+  font-family: var(--font-switzer);
+
+  font-size: clamp(70px, 13vw, 180px);
+
+  font-weight: 700;
+
+  line-height: 0.88;
+
+  letter-spacing: clamp(-7px, -0.4vw, -2px);
+
+  text-transform: uppercase;
+
+  color: #ffffff;
+
+  user-select: none;
+
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   LARGE DESKTOP
+   1400px+
+========================================================= */
+
+@media (min-width: 1400px) {
+
+  .hero-section {
+    padding: 120px 60px 45px;
+  }
+
+  .hero-container {
+    max-width: 1500px;
+
+    min-height: calc(100svh - 165px);
+  }
+
+  .hero-profile-wrapper {
+    margin-right: 25px;
+  }
+
+  .hero-profile-card {
+    width: 250px;
+    height: 280px;
+  }
+
+  .hero-subtitle h2 {
+    font-size: 30px;
+  }
+
+  .hero-main-title h1 {
+    font-size: clamp(140px, 12vw, 190px);
+
+    letter-spacing: -7px;
+  }
+}
+
+
+/* =========================================================
+   DESKTOP
+   1200px - 1399px
+========================================================= */
+
+@media (max-width: 1399px) and (min-width: 1200px) {
+
+  .hero-section {
+    padding: 105px 40px 40px;
+  }
+
+  .hero-container {
+    min-height: calc(100svh - 145px);
+  }
+
+  .hero-profile-wrapper {
+    margin-right: 15px;
+  }
+
+  .hero-profile-card {
+    width: 235px;
+    height: 265px;
+  }
+
+  .hero-subtitle h2 {
+    font-size: 28px;
+  }
+
+  .hero-main-title h1 {
+    font-size: clamp(115px, 12vw, 165px);
+
+    letter-spacing: -6px;
+  }
+}
+
+
+/* =========================================================
+   TABLET LANDSCAPE
+   810px - 1199px
+========================================================= */
+
+@media (max-width: 1199px) and (min-width: 810px) {
+
+  .hero-section {
+    padding: 95px 32px 35px;
+  }
+
+  .hero-container {
+    min-height: calc(100svh - 130px);
+
+    max-width: 1100px;
+  }
+
+  .hero-profile-wrapper {
+    margin-top: 5px;
+    margin-right: 5px;
+  }
+
+  .hero-profile-card {
+    width: 205px;
+    height: 235px;
+  }
+
+  .hero-subtitle {
+    max-width: 350px;
+  }
+
+  .hero-subtitle h2 {
+    font-size: 25px;
+
+    letter-spacing: -0.5px;
+  }
+
+  .hero-main-title h1 {
+    font-size: clamp(90px, 12vw, 135px);
+
+    letter-spacing: -5px;
+
+    line-height: 0.9;
+  }
+}
+
+
+/* =========================================================
+   TABLET PORTRAIT
+   601px - 809px
+========================================================= */
+
+@media (max-width: 809px) and (min-width: 601px) {
+
+  .hero-section {
+    min-height: 100svh;
+
+    padding: 85px 28px 30px;
+  }
+
+  .hero-container {
+    min-height: calc(100svh - 115px);
+
+    max-width: 760px;
+
+    align-items: flex-end;
+  }
+
+
+  /* PROFILE */
+
+  .hero-profile-wrapper {
+    margin-top: 0;
+    margin-right: 0;
+  }
+
+  .hero-profile-card {
+    width: 190px;
+    height: 225px;
+
+    border-radius: 4px;
+  }
+
+
+  /* SUBTITLE */
+
+  .hero-subtitle {
+    max-width: 330px;
+  }
+
+  .hero-subtitle h2 {
+    font-size: 22px;
+
+    letter-spacing: -0.4px;
+  }
+
+
+  /* MAIN TITLE */
+
+  .hero-main-title h1 {
+    font-size: clamp(72px, 13vw, 110px);
+
+    letter-spacing: -4px;
+
+    line-height: 0.9;
+
+    white-space: nowrap;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+   600px AND BELOW
+
+   LARGE PORTRAIT IMAGE
+========================================================= */
+
+@media (max-width: 600px) {
+
+  .hero-section {
+    width: 100%;
+
+    min-height: 100vh;
+    min-height: 100svh;
+
+    height: auto;
+
+    padding: 75px 18px 28px;
+
+    overflow: hidden;
+
+    box-sizing: border-box;
+  }
+
+
+  /* =======================================================
+     MOBILE HERO CONTAINER
+  ======================================================= */
+
+  .hero-container {
+    width: 100%;
+    max-width: none;
+
+    min-height: calc(100svh - 105px);
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: flex-start;
+
+    align-items: center;
+
+    gap: 38px;
+  }
+
+
+  /* =======================================================
+     MOBILE PROFILE WRAPPER
+  ======================================================= */
+
+  .hero-profile-wrapper {
+    width: 100%;
+
+    margin: 0;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    flex-shrink: 0;
+  }
+
+
+  /* =======================================================
+     LARGE MOBILE PROFILE IMAGE
+
+     Similar to your reference:
+     almost full width
+     tall portrait
+  ======================================================= */
+
+  .hero-profile-card {
+    width: 100%;
+
+    /*
+      Portrait ratio.
+
+      Example:
+      358px wide
+      ~405px high
+    */
+    aspect-ratio: 0.88 / 1;
+
+    height: auto;
+
+    max-height: 520px;
+
+    overflow: hidden;
+
+    border-radius: 0;
+
+    border: none;
+
+    background: #080808;
+
+    box-shadow: none;
+
+    transform: none;
+
+    animation: none;
+
+    transition: none;
+
+    flex-shrink: 0;
+  }
+
+
+  /* =======================================================
+     MOBILE PROFILE IMAGE
+  ======================================================= */
+
+  .hero-profile-img {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    /*
+      Change to:
+      center left
+      45% center
+      55% center
+
+      if your face needs repositioning.
+    */
+    object-position: center center;
+
+    transform: none;
+  }
+
+
+  /* =======================================================
+     MOBILE TEXT
+  ======================================================= */
+
+  .hero-text-wrapper {
+    width: 100%;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 12px;
+
+    margin: 0;
+  }
+
+
+  /* =======================================================
+     MOBILE SUBTITLE
+  ======================================================= */
+
+  .hero-subtitle {
+    width: 100%;
+
+    max-width: 330px;
+  }
+
+  .hero-subtitle h2 {
+    margin: 0;
+
+    font-size: clamp(19px, 5vw, 23px);
+
+    line-height: 1.15;
+
+    letter-spacing: -0.5px;
+
+    font-weight: 500;
+  }
+
+
+  /* =======================================================
+     MOBILE NAME
+  ======================================================= */
+
+  .hero-main-title {
+    width: 100%;
+
+    overflow: hidden;
+  }
+
+  .hero-main-title h1 {
+    width: 100%;
+
+    margin: 0;
+
+    font-size: clamp(50px, 15vw, 82px);
+
+    line-height: 0.9;
+
+    letter-spacing: -2.5px;
+
+    white-space: nowrap;
+
+    overflow: visible;
+  }
+}
+
+
+/* =========================================================
+   480px AND BELOW
+
+   LARGE PHONE
+========================================================= */
+
+@media (max-width: 480px) {
+
+  .hero-section {
+    padding: 70px 16px 25px;
+  }
+
+
+  /* CONTAINER */
+
+  .hero-container {
+    min-height: calc(100svh - 95px);
+
+    gap: 32px;
+  }
+
+
+  /* =======================================================
+     LARGE PORTRAIT IMAGE
+  ======================================================= */
+
+  .hero-profile-card {
+    width: 100%;
+
+    /*
+      Keeps the image tall like the reference.
+    */
+    aspect-ratio: 0.88 / 1;
+
+    max-height: none;
+
+    border-radius: 0;
+  }
+
+
+  /* IMAGE */
+
+  .hero-profile-img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    object-position: center center;
+  }
+
+
+  /* =======================================================
+     SUBTITLE
+  ======================================================= */
+
+  .hero-subtitle {
+    max-width: 290px;
+  }
+
+  .hero-subtitle h2 {
+    font-size: clamp(18px, 4.8vw, 21px);
+
+    line-height: 1.17;
+
+    letter-spacing: -0.35px;
+  }
+
+
+  /* =======================================================
+     NAME
+  ======================================================= */
+
+  .hero-main-title {
+    width: 100%;
+
+    overflow: hidden;
+  }
+
+  .hero-main-title h1 {
+    font-size: clamp(46px, 15vw, 72px);
+
+    line-height: 0.92;
+
+    letter-spacing: -2px;
+
+    white-space: nowrap;
+  }
+}
+
+
+/* =========================================================
+   400px AND BELOW
+========================================================= */
+
+@media (max-width: 400px) {
+
+  .hero-section {
+    padding-left: 14px;
+    padding-right: 14px;
+
+    padding-top: 68px;
+    padding-bottom: 22px;
+  }
+
+  .hero-container {
+    gap: 28px;
+  }
+
+
+  /* PROFILE */
+
+  .hero-profile-card {
+    width: 100%;
+
+    aspect-ratio: 0.88 / 1;
+  }
+
+
+  /* SUBTITLE */
+
+  .hero-subtitle {
+    max-width: 275px;
+  }
+
+  .hero-subtitle h2 {
+    font-size: 18px;
+
+    line-height: 1.16;
+
+    letter-spacing: -0.3px;
+  }
+
+
+  /* NAME */
+
+  .hero-main-title h1 {
+    font-size: clamp(43px, 14.8vw, 62px);
+
+    letter-spacing: -1.7px;
+
+    line-height: 0.93;
+  }
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+   360px AND BELOW
+========================================================= */
+
+@media (max-width: 360px) {
+
+  .hero-section {
+    padding-left: 12px;
+    padding-right: 12px;
+
+    padding-top: 65px;
+    padding-bottom: 20px;
+  }
+
+  .hero-container {
+    min-height: calc(100svh - 85px);
+
+    gap: 25px;
+  }
+
+
+  /* =======================================================
+     PROFILE
+  ======================================================= */
+
+  .hero-profile-card {
+    width: 100%;
+
+    aspect-ratio: 0.88 / 1;
+
+    border-radius: 0;
+  }
+
+
+  /* =======================================================
+     IMAGE
+  ======================================================= */
+
+  .hero-profile-img {
+    object-fit: cover;
+
+    object-position: center center;
+  }
+
+
+  /* =======================================================
+     SUBTITLE
+  ======================================================= */
+
+  .hero-subtitle {
+    max-width: 250px;
+  }
+
+  .hero-subtitle h2 {
+    font-size: 16px;
+
+    line-height: 1.18;
+
+    letter-spacing: -0.2px;
+  }
+
+
+  /* =======================================================
+     NAME
+  ======================================================= */
+
+  .hero-main-title h1 {
+    font-size: 40px;
+
+    line-height: 0.94;
+
+    letter-spacing: -1.3px;
+
+    white-space: nowrap;
+  }
+}
+
+
+/* =========================================================
+   MOBILE LANDSCAPE
+========================================================= */
+
+@media (max-width: 809px) and (orientation: landscape) {
+
+  .hero-section {
+    min-height: 100svh;
+
+    padding-top: 65px;
+
+    padding-bottom: 20px;
+  }
+
+  .hero-container {
+    min-height: calc(100svh - 85px);
+
+    gap: 20px;
+  }
+
+
+  /* Smaller image in landscape */
+
+  .hero-profile-card {
+    width: min(42vw, 280px);
+
+    aspect-ratio: 0.88 / 1;
+
+    max-height: 260px;
+  }
+
+
+  /* SUBTITLE */
+
+  .hero-subtitle h2 {
+    font-size: 17px;
+  }
+
+
+  /* NAME */
+
+  .hero-main-title h1 {
+    font-size: clamp(46px, 9vw, 72px);
+
+    letter-spacing: -2px;
+  }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .hero-profile-card,
+  .hero-profile-card:hover {
+    transform: none;
+
+    animation: none;
+
+    transition: none;
+  }
+
+  .hero-profile-img {
+    transform: none;
+  }
+}
+
+
+/* =========================================================
+   SAFETY / OVERFLOW
+========================================================= */
+
+.hero-section,
+.hero-container,
+.hero-text-wrapper,
+.hero-main-title {
+  max-width: 100%;
+}
+
+.hero-section * {
+  box-sizing: border-box;
+}
+
+
+/* Prevent accidental horizontal scrolling */
+
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
