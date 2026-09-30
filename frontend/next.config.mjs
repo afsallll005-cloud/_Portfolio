@@ -13,6 +13,14 @@ const nextConfig = {
       },
     ],
   },
+  async rewrites() {
+    return [
+      {
+        source: "/api/:path*",
+        destination: "https://portfolio-three-hazel-a62b0relg0.vercel.app/api/:path*",
+      },
+    ];
+  },
 };
 
 export default nextConfig;
