@@ -46,28 +46,50 @@ app.use(async (req, res, next) => {
   }
 });
 
+// Helper function to test DB connection
+const getDbStatus = async () => {
+  try {
+    await connectDB();
+    return {
+      connected: mongoose.connection.readyState === 1,
+      error: null,
+    };
+  } catch (err) {
+    return {
+      connected: false,
+      error: err.message,
+    };
+  }
+};
+
 // Root & Health check routes
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
+  const dbStatus = await getDbStatus();
   res.json({
     message: 'Portfolio API is running...',
     status: 'ok',
-    mongodb: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected',
+    mongodb: dbStatus.connected ? 'connected' : 'disconnected',
+    ...(dbStatus.error ? { mongodbError: dbStatus.error } : {}),
   });
 });
 
-app.get('/api', (req, res) => {
+app.get('/api', async (req, res) => {
+  const dbStatus = await getDbStatus();
   res.json({
     message: 'Portfolio API is running...',
     status: 'ok',
-    mongodb: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected',
+    mongodb: dbStatus.connected ? 'connected' : 'disconnected',
+    ...(dbStatus.error ? { mongodbError: dbStatus.error } : {}),
   });
 });
 
-app.get('/api/health', (req, res) => {
+app.get('/api/health', async (req, res) => {
+  const dbStatus = await getDbStatus();
   res.json({
     status: 'ok',
     timestamp: new Date().toISOString(),
-    mongodb: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected',
+    mongodb: dbStatus.connected ? 'connected' : 'disconnected',
+    ...(dbStatus.error ? { mongodbError: dbStatus.error } : {}),
   });
 });
 
