@@ -12,9 +12,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Fredrick Portfolio | Brand Designer, UI/UX & Web Designer",
+  title: "Afsal Software Developer",
   description:
-    "A perfect portfolio website for a brand designer, UI/UX designer & Web designers.",
+    "Portfolio of Afsal, Software Developer.",
 };
 
 export const viewport = {
