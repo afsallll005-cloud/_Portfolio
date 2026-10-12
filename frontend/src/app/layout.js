@@ -12,9 +12,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Afsal Software Developer",
+  title: "MHD Afsal | Best Website Designer & Developer in Calicut",
   description:
-    "Portfolio of Afsal, Software Developer.",
+    "Portfolio of MHD Afsal — Creative Website Designer & Developer in Calicut, Kerala.",
 };
 
 export const viewport = {

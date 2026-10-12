@@ -18,6 +18,10 @@ const heroSchema = new mongoose.Schema(
       type: String,
       default: './images/glitchme.jpeg',
     },
+    searchPhrase: {
+      type: String,
+      default: 'Best website designer in Calicut',
+    },
     stat1Value: {
       type: String,
       default: '98%',

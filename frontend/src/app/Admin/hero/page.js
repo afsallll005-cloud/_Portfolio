@@ -21,8 +21,9 @@ export default function HeroAdmin() {
 
   const [formData, setFormData] = useState({
     title: "MHDAFSAL",
-    subtitle: "I’m Specialized in Creating Website Design.",
+    subtitle: "THE BEST WEBSITE DESIGNER &\nDEVELOPER IN CALICUT.",
     image: "./images/glitchme.jpeg",
+    searchPhrase: "Best website designer in Calicut",
   });
 
   useEffect(() => {
@@ -37,8 +38,9 @@ export default function HeroAdmin() {
         if (data && !data.message) {
           setFormData({
             title: data.title || "MHDAFSAL",
-            subtitle: data.subtitle || "I’m Specialized in Creating Website Design.",
+            subtitle: data.subtitle || "THE BEST WEBSITE DESIGNER &\nDEVELOPER IN CALICUT.",
             image: data.image || "./images/glitchme.jpeg",
+            searchPhrase: data.searchPhrase || "Best website designer in Calicut",
           });
         }
       }
@@ -210,9 +212,23 @@ export default function HeroAdmin() {
                 rows="3"
                 value={formData.subtitle}
                 onChange={handleChange}
-                placeholder="e.g. I’m Specialized in Creating Website Design."
+                placeholder="e.g. THE BEST WEBSITE DESIGNER &\nDEVELOPER IN CALICUT."
                 required
               />
+              <span className="form-hint">Displayed in bold Clash Display typography when zoomed in</span>
+            </div>
+
+            <div className="form-group">
+              <label className="form-label">Search Intro Typing Phrase</label>
+              <input
+                type="text"
+                name="searchPhrase"
+                className="form-input"
+                value={formData.searchPhrase || ""}
+                onChange={handleChange}
+                placeholder="e.g. Best website designer in Calicut"
+              />
+              <span className="form-hint">Typed in the Google search bar overlay on page load</span>
             </div>
 
             {/* Profile Card Image Upload Area */}

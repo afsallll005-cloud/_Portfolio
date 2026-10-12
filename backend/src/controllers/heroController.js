@@ -43,6 +43,7 @@ const updateHero = async (req, res) => {
     hero.title = req.body.title !== undefined ? req.body.title : hero.title;
     hero.subtitle = req.body.subtitle !== undefined ? req.body.subtitle : hero.subtitle;
     hero.image = req.body.image !== undefined ? req.body.image : hero.image;
+    hero.searchPhrase = req.body.searchPhrase !== undefined ? req.body.searchPhrase : hero.searchPhrase;
     hero.stat1Value = req.body.stat1Value !== undefined ? req.body.stat1Value : hero.stat1Value;
     hero.stat1Label = req.body.stat1Label !== undefined ? req.body.stat1Label : hero.stat1Label;
     hero.stat2Value = req.body.stat2Value !== undefined ? req.body.stat2Value : hero.stat2Value;

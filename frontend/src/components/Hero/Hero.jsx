@@ -1,16 +1,15 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { API_BASE_URL } from "@/utils/api";
 import "./Hero.css";
 
 export default function Hero() {
-  const canvasRef = useRef(null);
-
   const [heroData, setHeroData] = useState({
-    title: "MHDAFSAL",
-    subtitle: "I’m Specialized in Creating Website Design.",
-    image: "./images/glitchme.jpeg",
+    title: "MHD AFSAL",
+    headline: "THE BEST WEBSITE DESIGNER &\nDEVELOPER IN CALICUT.",
+    image: "/images/glitchme.jpeg",
+    phrase: "Best website designer in Calicut",
   });
 
   // Fetch dynamic hero data from backend
@@ -21,148 +20,417 @@ export default function Hero() {
         if (res.ok) {
           const data = await res.json();
           if (data && !data.message) {
+            let parsedImg = data.image || "/images/glitchme.jpeg";
+            if (typeof parsedImg === "string") {
+              if (parsedImg.startsWith("./")) {
+                parsedImg = parsedImg.replace(/^\.\//, "/");
+              }
+              if (!parsedImg.trim()) {
+                parsedImg = "/images/glitchme.jpeg";
+              }
+            } else {
+              parsedImg = "/images/glitchme.jpeg";
+            }
+
             setHeroData({
-              title: data.title || "MHDAFSAL",
-              subtitle: data.subtitle || "I’m Specialized in Creating Website Design.",
-              image: data.image || "./images/glitchme.jpeg",
+              title: data.title || "MHD AFSAL",
+              headline:
+                data.subtitle && !data.subtitle.includes("I’m Specialized")
+                  ? data.subtitle
+                  : "THE BEST WEBSITE DESIGNER &\nDEVELOPER IN CALICUT.",
+              image: parsedImg,
+              phrase: data.searchPhrase || "Best website designer in Calicut",
             });
           }
         }
       } catch (err) {
-        console.warn("Could not fetch dynamic hero from backend, using default.", err);
+        console.warn("Could not fetch hero from backend, using defaults.", err);
       }
     };
 
     fetchHero();
   }, []);
 
-  // Canvas Shader Animation
+  // Exact GSAP + ScrollTrigger animation from bilalgrowth.com
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    let animationFrameId;
-    let width = (canvas.width = window.innerWidth);
-    let height = (canvas.height = window.innerHeight);
+    let isCancelled = false;
+    let tl = null;
+    let unlockTimer = null;
+    let typingTimer = null;
+    let resizeTimer = null;
 
-    const handleResize = () => {
-      if (!canvas) return;
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    // Interactive mouse tracking
-    let mouse = { x: width * 0.7, y: height * 0.4, targetX: width * 0.7, targetY: height * 0.4 };
-    const handleMouseMove = (e) => {
-      mouse.targetX = e.clientX;
-      mouse.targetY = e.clientY;
-    };
-    window.addEventListener("mousemove", handleMouseMove);
-
-    let time = 0;
-
-    const render = () => {
-      time += 0.007;
-      mouse.x += (mouse.targetX - mouse.x) * 0.05;
-      mouse.y += (mouse.targetY - mouse.y) * 0.05;
-
-      ctx.fillStyle = "#010101";
-      ctx.fillRect(0, 0, width, height);
-
-      // Deep ambient blue-violet gradient mesh glow
-      const cx = width * 0.65 + Math.sin(time * 0.5) * 60;
-      const cy = height * 0.5 + Math.cos(time * 0.4) * 50;
-
-      const radialGrad = ctx.createRadialGradient(cx, cy, 30, cx, cy, Math.max(width, height) * 0.65);
-      radialGrad.addColorStop(0, "rgba(25, 45, 110, 0.45)");
-      radialGrad.addColorStop(0.35, "rgba(10, 18, 55, 0.25)");
-      radialGrad.addColorStop(0.7, "rgba(5, 7, 22, 0.1)");
-      radialGrad.addColorStop(1, "rgba(1, 1, 1, 0)");
-
-      ctx.fillStyle = radialGrad;
-      ctx.fillRect(0, 0, width, height);
-
-      // Secondary moving luminous accent
-      const mouseGrad = ctx.createRadialGradient(mouse.x, mouse.y, 10, mouse.x, mouse.y, 400);
-      mouseGrad.addColorStop(0, "rgba(36, 103, 227, 0.15)");
-      mouseGrad.addColorStop(1, "rgba(1, 1, 1, 0)");
-      ctx.fillStyle = mouseGrad;
-      ctx.fillRect(0, 0, width, height);
-
-      // Flowing silky curved lines (Shader ribbon effect)
-      ctx.lineWidth = 1.2;
-      const ribbons = 5;
-      for (let r = 0; r < ribbons; r++) {
-        ctx.beginPath();
-        const baseOpacity = 0.12 - r * 0.018;
-        ctx.strokeStyle = `rgba(80, 140, 255, ${Math.max(0.03, baseOpacity)})`;
-
-        for (let x = 0; x < width; x += 15) {
-          const freq = 0.0022;
-          const offset = r * 0.35;
-          const y =
-            height * 0.42 +
-            Math.sin(x * freq + time + offset) * 110 +
-            Math.cos(x * 0.0012 - time * 0.8) * 80 +
-            r * 25;
-          if (x === 0) {
-            ctx.moveTo(x, y);
-          } else {
-            ctx.lineTo(x, y);
-          }
+    const loadScript = (src, globalKey) => {
+      return new Promise((resolve) => {
+        if (typeof window !== "undefined" && window[globalKey]) {
+          return resolve();
         }
-        ctx.stroke();
+        const existing = document.querySelector(`script[src="${src}"]`);
+        if (existing) {
+          if (existing.getAttribute("data-loaded") === "true" || window[globalKey]) {
+            return resolve();
+          }
+          existing.addEventListener("load", () => resolve());
+          return;
+        }
+        const script = document.createElement("script");
+        script.src = src;
+        script.async = true;
+        script.onload = () => {
+          script.setAttribute("data-loaded", "true");
+          resolve();
+        };
+        script.onerror = () => resolve();
+        document.head.appendChild(script);
+      });
+    };
+
+    const boot = () => {
+      if (isCancelled) return;
+      const gsap = window.gsap;
+      const ScrollTrigger = window.ScrollTrigger;
+      if (!gsap || !ScrollTrigger) return;
+
+      if ("scrollRestoration" in history) {
+        history.scrollRestoration = "manual";
+      }
+      window.scrollTo(0, 0);
+      gsap.registerPlugin(ScrollTrigger);
+
+      const root = document.getElementById("abHero");
+      const search = document.getElementById("abSearch");
+      const typing = document.getElementById("abTyping");
+      const adil = document.getElementById("abAdil");
+      const bilal = document.getElementById("abBilal");
+      const headline = document.getElementById("abHeadline");
+      const cover = document.getElementById("abCenterCover");
+      const siteHeader =
+        document.querySelector("header.navbar") ||
+        document.querySelector(".navbar");
+
+      if (!root || !search || !typing || !adil || !bilal || !headline || !cover) {
+        return;
       }
 
-      animationFrameId = requestAnimationFrame(render);
+      let scrollUnlocked = false;
+      document.documentElement.classList.add("ab-scroll-locked");
+      document.body.classList.add("ab-scroll-locked");
+
+      function unlockScroll() {
+        if (scrollUnlocked) return;
+        scrollUnlocked = true;
+        document.documentElement.classList.remove("ab-scroll-locked");
+        document.body.classList.remove("ab-scroll-locked");
+        if (typeof ScrollTrigger !== "undefined") {
+          ScrollTrigger.refresh(true);
+        }
+      }
+
+      unlockTimer = setTimeout(unlockScroll, 5200);
+
+      // Typing animation
+      const phrase = heroData.phrase || "Best website designer in Calicut";
+      let i = 0;
+      function typeNext() {
+        if (isCancelled) return;
+        if (i <= phrase.length) {
+          if (typing) typing.textContent = phrase.slice(0, i);
+          i++;
+          typingTimer = setTimeout(typeNext, 55);
+        }
+      }
+      typeNext();
+
+      // Click to skip search intro immediately
+      const handleSearchClick = () => {
+        gsap.killTweensOf(search);
+        gsap.to(search, {
+          autoAlpha: 0,
+          duration: 0.35,
+          onComplete: unlockScroll,
+        });
+      };
+      search.addEventListener("click", handleSearchClick);
+
+      gsap.to(search, {
+        autoAlpha: 0,
+        duration: 0.72,
+        delay: 3.55,
+        ease: "power3.inOut",
+        onComplete: unlockScroll,
+      });
+
+      const img = cover.querySelector("img");
+
+      function setCoverFixed() {
+        if (cover.parentElement !== document.body) {
+          document.body.appendChild(cover);
+        }
+        Object.assign(cover.style, {
+          position: "fixed",
+          left: "50vw",
+          top: "50vh",
+        });
+      }
+
+      function setCoverInFlow() {
+        if (cover.parentElement !== root) {
+          root.appendChild(cover);
+        }
+        Object.assign(cover.style, {
+          position: "absolute",
+          left: "50%",
+          top: "50%",
+        });
+      }
+
+      setCoverFixed();
+
+      function getCoverScale() {
+        const vw = window.innerWidth;
+        const vh = window.innerHeight;
+        const baseW = Math.min(vw * 0.43, 760);
+        const baseH = (baseW * 9) / 16;
+        return Math.max(vw / baseW, vh / baseH);
+      }
+
+      let headlineShown = false;
+
+      function buildTimeline() {
+        if (tl) {
+          tl.scrollTrigger && tl.scrollTrigger.kill();
+          tl.kill();
+          tl = null;
+        }
+        headlineShown = false;
+        setCoverFixed();
+        const fullScale = getCoverScale();
+        const splitDistance = Math.min(window.innerWidth * 0.14, 210);
+
+        gsap.set(adil, { x: 0, opacity: 1 });
+        gsap.set(bilal, { x: 0, opacity: 1 });
+        gsap.set(headline, { opacity: 0, y: 24 });
+        if (siteHeader) {
+          gsap.set(siteHeader, { opacity: 0, pointerEvents: "none" });
+        }
+        gsap.set(cover, {
+          xPercent: -50,
+          yPercent: -50,
+          scale: 0.18,
+          opacity: 0,
+        });
+
+        tl = gsap.timeline({
+          defaults: { ease: "none" },
+          scrollTrigger: {
+            trigger: root,
+            start: "top top",
+            end: () =>
+              "+=" +
+              window.innerHeight * (window.innerWidth <= 767 ? 1.0 : 1.1),
+            pin: root,
+            pinSpacing: true,
+            scrub: 0.4,
+            anticipatePin: 1,
+            invalidateOnRefresh: true,
+            refreshPriority: 30,
+            onLeave: setCoverInFlow,
+            onEnterBack: setCoverFixed,
+            onUpdate: function (self) {
+              if (self.progress >= 0.38 && !headlineShown) {
+                headlineShown = true;
+                gsap.to(headline, {
+                  opacity: 1,
+                  y: 0,
+                  duration: 0.35,
+                  ease: "power2.out",
+                  overwrite: true,
+                });
+              } else if (self.progress < 0.38 && headlineShown) {
+                headlineShown = false;
+                gsap.to(headline, {
+                  opacity: 0,
+                  y: 24,
+                  duration: 0.25,
+                  ease: "power2.in",
+                  overwrite: true,
+                });
+              }
+            },
+          },
+        });
+
+        tl.to(adil, { x: -splitDistance, duration: 0.18 }, 0);
+        tl.to(bilal, { x: splitDistance, duration: 0.18 }, 0);
+        tl.to(cover, { opacity: 1, scale: 0.3, duration: 0.05 }, 0.02);
+        tl.to(cover, { scale: fullScale, duration: 0.3 }, 0.08);
+        tl.to(adil, { opacity: 0, duration: 0.1 }, 0.22);
+        tl.to(bilal, { opacity: 0, duration: 0.1 }, 0.22);
+        if (siteHeader) {
+          tl.to(
+            siteHeader,
+            { opacity: 1, pointerEvents: "auto", duration: 0.14 },
+            0.46
+          );
+        }
+        tl.to(cover, { scale: fullScale, duration: 0.54 }, 0.46);
+      }
+
+      function init() {
+        buildTimeline();
+        requestAnimationFrame(function () {
+          ScrollTrigger.refresh(true);
+          if (window.scrollY <= 0 && tl) {
+            tl.progress(0, true);
+          }
+        });
+        setTimeout(function () {
+          ScrollTrigger.refresh(true);
+          if (window.scrollY <= 0 && tl) {
+            tl.progress(0, true);
+          }
+        }, 650);
+      }
+
+      if (img && img.complete) {
+        init();
+      } else if (img) {
+        img.addEventListener("load", init, { once: true });
+        setTimeout(function () {
+          if (!tl) init();
+        }, 1200);
+      } else {
+        init();
+      }
+
+      const handleResize = () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function () {
+          buildTimeline();
+          ScrollTrigger.refresh(true);
+        }, 220);
+      };
+      window.addEventListener("resize", handleResize, { passive: true });
     };
 
-    render();
+    // Load GSAP + ScrollTrigger from CDN
+    Promise.all([
+      loadScript("https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js", "gsap"),
+      loadScript("https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js", "ScrollTrigger"),
+    ]).then(() => {
+      boot();
+    });
 
     return () => {
-      window.removeEventListener("resize", handleResize);
-      window.removeEventListener("mousemove", handleMouseMove);
-      cancelAnimationFrame(animationFrameId);
+      isCancelled = true;
+      clearTimeout(unlockTimer);
+      clearTimeout(typingTimer);
+      clearTimeout(resizeTimer);
+      document.documentElement.classList.remove("ab-scroll-locked");
+      document.body.classList.remove("ab-scroll-locked");
+      if (tl) {
+        tl.scrollTrigger && tl.scrollTrigger.kill();
+        tl.kill();
+      }
+      if (window.ScrollTrigger) {
+        window.ScrollTrigger.getAll().forEach((t) => t.kill());
+      }
+      const cover = document.getElementById("abCenterCover");
+      if (cover && cover.parentElement === document.body) {
+        document.body.removeChild(cover);
+      }
     };
-  }, []);
+  }, [heroData.phrase]);
+
+  // Parse name into two words
+  const rawTitle = (heroData.title || "MHD AFSAL").trim();
+  let firstWord = "MHD";
+  let secondWord = "AFSAL";
+  if (rawTitle.includes(" ")) {
+    const parts = rawTitle.split(/\s+/);
+    firstWord = parts[0];
+    secondWord = parts.slice(1).join(" ");
+  } else if (rawTitle.toUpperCase().startsWith("MHD") && rawTitle.length > 3) {
+    firstWord = "MHD";
+    secondWord = rawTitle.slice(3).trim();
+  }
+
+  // Parse headline
+  const headlineText = heroData.headline || "THE BEST WEBSITE DESIGNER &\nDEVELOPER IN CALICUT.";
+  const lines = headlineText.split("\n");
+  const lastLine = lines[lines.length - 1];
+  const matchAccent = lastLine.match(/(.*?\bIN\s+)?([A-Za-z0-9_-]+)(\.?)?$/i);
 
   return (
-    <section className="hero-section" id="home">
-      {/* BACKGROUND SHADER CANVAS */}
-      <div className="hero-canvas-container" aria-hidden="true">
-        <canvas ref={canvasRef} className="hero-shader-canvas" />
-      </div>
+    <>
+      {/* 1. HERO SECTION PINNED BY GSAP */}
+      <section
+        id="abHero"
+        aria-label={`${firstWord} ${secondWord}, Best Website Designer in Calicut — hero section`}
+      >
+        <div className="viewport">
+          {/* SEARCH INTRO */}
+          <div className="search" id="abSearch" aria-hidden="true">
+            <div className="search-bar">
+              <span className="search-icon">⌕</span>
+              <div className="search-text" id="abTyping"></div>
+              <span className="search-caret"></span>
+            </div>
+          </div>
 
-      {/* HERO CONTAINER */}
-      <div className="hero-container">
-        {/* RIGHT TOP PROFILE CARD */}
-        <div className="hero-profile-wrapper">
-          <div className="hero-profile-card">
-            <img
-              src={heroData.image}
-              alt={heroData.title}
-              className="hero-profile-img"
-              loading="eager"
-              onError={(e) => {
-                e.currentTarget.src = "./images/glitchme.jpeg";
-              }}
-            />
+          {/* SPLITTING NAME */}
+          <div className="name-layer" aria-hidden="true">
+            <div className="name">
+              <span className="word" id="abAdil">
+                {firstWord}
+              </span>
+              <span className="word" id="abBilal">
+                {secondWord}
+              </span>
+            </div>
+          </div>
+
+          {/* REVEALING HEADLINE */}
+          <div className="headline-layer" id="abHeadline">
+            <h1>
+              {lines.slice(0, -1).map((l, idx) => (
+                <span key={idx}>
+                  {l}
+                  <br />
+                </span>
+              ))}
+              {matchAccent ? (
+                <>
+                  {matchAccent[1] || ""}
+                  <span className="accent">{matchAccent[2]}</span>
+                  {matchAccent[3] || ""}
+                </>
+              ) : (
+                lastLine
+              )}
+            </h1>
           </div>
         </div>
+      </section>
 
-        {/* BOTTOM HEADINGS */}
-        <div className="hero-text-wrapper">
-          <div className="hero-subtitle">
-            <h2>{heroData.subtitle}</h2>
-          </div>
-
-          <div className="hero-main-title">
-            <h1>{heroData.title}</h1>
-          </div>
-        </div>
+      {/* 2. CENTER COVER IMAGE (ANIMATED BY GSAP TIMELINE ON SCROLL) */}
+      <div id="abCenterCover">
+        <img
+          src={heroData.image || "/images/glitchme.jpeg"}
+          alt={`${firstWord} ${secondWord} — Best Website Designer in Calicut`}
+          fetchPriority="high"
+          decoding="async"
+          onError={(e) => {
+            const target = e.currentTarget;
+            if (!target.dataset.tried) {
+              target.dataset.tried = "1";
+              target.src = "/images/glitchme.jpeg";
+            } else if (target.dataset.tried === "1") {
+              target.dataset.tried = "2";
+              target.src = "https://bilalgrowth.com/wp-content/uploads/2026/09/best-digital-marketing-strategist-calicut-2.webp";
+            }
+          }}
+        />
       </div>
-    </section>
+    </>
   );
 }

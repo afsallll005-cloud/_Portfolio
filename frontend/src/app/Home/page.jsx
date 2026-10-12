@@ -15,9 +15,9 @@ export default function Home() {
     <main className="portfolio">
       <Navbar />
       <Hero />
+      <About />
       <Works />
       <Services />
-      <About />
       {/* <Skills /> */}
       <HowIWork />
       <FAQ />
