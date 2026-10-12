@@ -241,7 +241,7 @@ export default function AdminDashboard() {
             </div>
             <div className="quick-action-text">
               <h4>Edit Hero Section</h4>
-              <p>Update title, subtitle & photo</p>
+              <p>Update title, subtitle & images (Laptop & Mobile)</p>
             </div>
           </Link>
 

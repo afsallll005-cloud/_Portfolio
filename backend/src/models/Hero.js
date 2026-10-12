@@ -14,6 +14,16 @@ const heroSchema = new mongoose.Schema(
       type: String,
       default: 'I’m Specialized in Creating Website Design.',
     },
+    // Laptop / Desktop hero image
+    desktopImage: {
+      type: String,
+      default: './images/glitchme.jpeg',
+    },
+    // Mobile screen hero image
+    mobileImage: {
+      type: String,
+      default: './images/glitchme.jpeg',
+    },
     image: {
       type: String,
       default: './images/glitchme.jpeg',

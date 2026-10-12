@@ -8,6 +8,8 @@ export default function Hero() {
   const [heroData, setHeroData] = useState({
     title: "MHD AFSAL",
     headline: "THE BEST WEBSITE DESIGNER &\nDEVELOPER IN CALICUT.",
+    desktopImage: "/images/glitchme.jpeg",
+    mobileImage: "/images/glitchme.jpeg",
     image: "/images/glitchme.jpeg",
     phrase: "Best website designer in Calicut",
   });
@@ -20,17 +22,19 @@ export default function Hero() {
         if (res.ok) {
           const data = await res.json();
           if (data && !data.message) {
-            let parsedImg = data.image || "/images/glitchme.jpeg";
-            if (typeof parsedImg === "string") {
-              if (parsedImg.startsWith("./")) {
-                parsedImg = parsedImg.replace(/^\.\//, "/");
+            const parseImg = (val) => {
+              if (typeof val === "string") {
+                let cleaned = val.trim();
+                if (cleaned.startsWith("./")) {
+                  cleaned = cleaned.replace(/^\.\//, "/");
+                }
+                if (cleaned) return cleaned;
               }
-              if (!parsedImg.trim()) {
-                parsedImg = "/images/glitchme.jpeg";
-              }
-            } else {
-              parsedImg = "/images/glitchme.jpeg";
-            }
+              return "/images/glitchme.jpeg";
+            };
+
+            const desktopImg = parseImg(data.desktopImage || data.image);
+            const mobileImg = parseImg(data.mobileImage || data.desktopImage || data.image);
 
             setHeroData({
               title: data.title || "MHD AFSAL",
@@ -38,7 +42,9 @@ export default function Hero() {
                 data.subtitle && !data.subtitle.includes("I’m Specialized")
                   ? data.subtitle
                   : "THE BEST WEBSITE DESIGNER &\nDEVELOPER IN CALICUT.",
-              image: parsedImg,
+              desktopImage: desktopImg,
+              mobileImage: mobileImg,
+              image: desktopImg,
               phrase: data.searchPhrase || "Best website designer in Calicut",
             });
           }
@@ -188,8 +194,9 @@ export default function Hero() {
       function getCoverScale() {
         const vw = window.innerWidth;
         const vh = window.innerHeight;
-        const baseW = Math.min(vw * 0.43, 760);
-        const baseH = (baseW * 9) / 16;
+        const isMobile = vw <= 767;
+        const baseW = isMobile ? Math.min(vw * 0.88, 380) : Math.min(vw * 0.43, 760);
+        const baseH = isMobile ? Math.min(baseW * 1.25, vh * 0.46) : (baseW * 9) / 16;
         return Math.max(vw / baseW, vh / baseH);
       }
 
@@ -203,8 +210,11 @@ export default function Hero() {
         }
         headlineShown = false;
         setCoverFixed();
+        const isMobile = window.innerWidth <= 767;
         const fullScale = getCoverScale();
-        const splitDistance = Math.min(window.innerWidth * 0.14, 210);
+        const splitDistance = Math.min(window.innerWidth * (isMobile ? 0.22 : 0.14), 210);
+        const startScale = isMobile ? 0.65 : 0.18;
+        const revealScale = isMobile ? 1.0 : 0.3;
 
         gsap.set(adil, { x: 0, opacity: 1 });
         gsap.set(bilal, { x: 0, opacity: 1 });
@@ -215,7 +225,7 @@ export default function Hero() {
         gsap.set(cover, {
           xPercent: -50,
           yPercent: -50,
-          scale: 0.18,
+          scale: startScale,
           opacity: 0,
         });
 
@@ -261,7 +271,7 @@ export default function Hero() {
 
         tl.to(adil, { x: -splitDistance, duration: 0.18 }, 0);
         tl.to(bilal, { x: splitDistance, duration: 0.18 }, 0);
-        tl.to(cover, { opacity: 1, scale: 0.3, duration: 0.05 }, 0.02);
+        tl.to(cover, { opacity: 1, scale: revealScale, duration: 0.05 }, 0.02);
         tl.to(cover, { scale: fullScale, duration: 0.3 }, 0.08);
         tl.to(adil, { opacity: 0, duration: 0.1 }, 0.22);
         tl.to(bilal, { opacity: 0, duration: 0.1 }, 0.22);
@@ -414,22 +424,33 @@ export default function Hero() {
 
       {/* 2. CENTER COVER IMAGE (ANIMATED BY GSAP TIMELINE ON SCROLL) */}
       <div id="abCenterCover">
-        <img
-          src={heroData.image || "/images/glitchme.jpeg"}
-          alt={`${firstWord} ${secondWord} — Best Website Designer in Calicut`}
-          fetchPriority="high"
-          decoding="async"
-          onError={(e) => {
-            const target = e.currentTarget;
-            if (!target.dataset.tried) {
-              target.dataset.tried = "1";
-              target.src = "/images/glitchme.jpeg";
-            } else if (target.dataset.tried === "1") {
-              target.dataset.tried = "2";
-              target.src = "https://bilalgrowth.com/wp-content/uploads/2026/09/best-digital-marketing-strategist-calicut-2.webp";
-            }
-          }}
-        />
+        <picture>
+          <source
+            media="(max-width: 767px)"
+            srcSet={heroData.mobileImage || heroData.image || "/images/glitchme.jpeg"}
+          />
+          <source
+            media="(min-width: 768px)"
+            srcSet={heroData.desktopImage || heroData.image || "/images/glitchme.jpeg"}
+          />
+          <img
+            src={heroData.desktopImage || heroData.image || "/images/glitchme.jpeg"}
+            alt={`${firstWord} ${secondWord} — Best Website Designer in Calicut`}
+            fetchPriority="high"
+            decoding="async"
+            onError={(e) => {
+              const target = e.currentTarget;
+              if (!target.dataset.tried) {
+                target.dataset.tried = "1";
+                target.src = "/images/glitchme.jpeg";
+              } else if (target.dataset.tried === "1") {
+                target.dataset.tried = "2";
+                target.src =
+                  "https://bilalgrowth.com/wp-content/uploads/2026/09/best-digital-marketing-strategist-calicut-2.webp";
+              }
+            }}
+          />
+        </picture>
       </div>
     </>
   );

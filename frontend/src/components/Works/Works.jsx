@@ -200,7 +200,7 @@ export default function Works() {
                           PROJECT OVERLAY & PROPER VIEW BUTTON
                       ====================================== */}
 
-                      <div className="project-overlay">
+                      {/* <div className="project-overlay">
 
                         <div
                           className="project-view-btn"
@@ -214,7 +214,7 @@ export default function Works() {
                           </span>
                         </div>
 
-                      </div>
+                      </div> */}
 
                     </div>
                   </div>
@@ -241,11 +241,11 @@ export default function Works() {
                         </h4>
                       </div>
 
-                      {project.category && (
+                      {/* {project.category && (
                         <p className="project-category-tag">
                           {project.category}
                         </p>
-                      )}
+                      )} */}
                     </div>
 
                     <div className="project-corner-arrow" aria-hidden="true">

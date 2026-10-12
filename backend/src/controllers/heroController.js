@@ -13,6 +13,8 @@ const getHero = async (req, res) => {
         backgroundText: 'DEVELOPER',
         title: 'MHDAFSAL',
         subtitle: 'I’m Specialized in Creating Website Design.',
+        desktopImage: './images/glitchme.jpeg',
+        mobileImage: './images/glitchme.jpeg',
         image: './images/glitchme.jpeg',
         stat1Value: '98%',
         stat1Label: 'CLIENT SATISFACTION RATE',
@@ -21,7 +23,15 @@ const getHero = async (req, res) => {
       });
     }
 
-    res.json(hero);
+    const heroObj = hero.toObject ? hero.toObject() : { ...hero };
+    if (!heroObj.desktopImage && heroObj.image) {
+      heroObj.desktopImage = heroObj.image;
+    }
+    if (!heroObj.mobileImage && heroObj.image) {
+      heroObj.mobileImage = heroObj.image;
+    }
+
+    res.json(heroObj);
   } catch (error) {
     res.status(500).json({ message: 'Server Error', error: error.message });
   }
@@ -42,7 +52,23 @@ const updateHero = async (req, res) => {
     hero.backgroundText = req.body.backgroundText !== undefined ? req.body.backgroundText : hero.backgroundText;
     hero.title = req.body.title !== undefined ? req.body.title : hero.title;
     hero.subtitle = req.body.subtitle !== undefined ? req.body.subtitle : hero.subtitle;
-    hero.image = req.body.image !== undefined ? req.body.image : hero.image;
+
+    // Laptop / Desktop Image
+    if (req.body.desktopImage !== undefined) {
+      hero.desktopImage = req.body.desktopImage;
+      hero.image = req.body.desktopImage; // maintain compatibility
+    } else if (req.body.image !== undefined) {
+      hero.desktopImage = req.body.image;
+      hero.image = req.body.image;
+    }
+
+    // Mobile Image
+    if (req.body.mobileImage !== undefined) {
+      hero.mobileImage = req.body.mobileImage;
+    } else if (!hero.mobileImage && (req.body.desktopImage || req.body.image)) {
+      hero.mobileImage = req.body.desktopImage || req.body.image;
+    }
+
     hero.searchPhrase = req.body.searchPhrase !== undefined ? req.body.searchPhrase : hero.searchPhrase;
     hero.stat1Value = req.body.stat1Value !== undefined ? req.body.stat1Value : hero.stat1Value;
     hero.stat1Label = req.body.stat1Label !== undefined ? req.body.stat1Label : hero.stat1Label;
