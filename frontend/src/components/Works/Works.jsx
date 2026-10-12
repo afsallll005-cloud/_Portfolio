@@ -61,25 +61,19 @@ export default function Works() {
             });
 
             /*
-             * First 4 projects
-             * are displayed initially.
-             *
-             * Newest projects should be returned
-             * first from your backend.
+             * In a 5-column grid, 10 projects
+             * (2 full rows of 5) are displayed initially.
              */
-            const mainFour = data
-              .slice(0, 4)
+            const initialCount = 10;
+            const mainProjectsList = data
+              .slice(0, initialCount)
               .map(formatProject);
 
-            /*
-             * 5th, 6th, 7th...
-             * automatically go to Load More.
-             */
             const additional = data
-              .slice(4)
+              .slice(initialCount)
               .map(formatProject);
 
-            setMainProjects(mainFour);
+            setMainProjects(mainProjectsList);
             setMoreProjects(additional);
           } else {
             setMainProjects([]);
@@ -155,7 +149,21 @@ export default function Works() {
         <div className="works-container">
 
           {/* =================================================
-              PROJECT GRID
+              WORKS HEADER
+          ================================================== */}
+          <div className="works-header">
+            <div className="works-eyebrow">
+              <span className="works-eyebrow-line" aria-hidden="true" />
+              <span className="works-eyebrow-text">WORKS</span>
+            </div>
+            <h2 className="works-heading">
+              Designing visuals that people<br />
+              actually <span className="works-heading-accent">want to look at.</span>
+            </h2>
+          </div>
+
+          {/* =================================================
+              PROJECT GRID (5-COLUMN VISUAL POSTERS)
           ================================================== */}
 
           {displayedProjects.length > 0 ? (
@@ -180,80 +188,29 @@ export default function Works() {
                 >
 
                   {/* =========================================
-                      PROJECT IMAGE
+                      PROJECT POSTER IMAGE
                   ========================================== */}
 
                   <div className="project-image-wrapper">
-                    <div className="project-image-inner">
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="project-img"
+                      loading="lazy"
+                      onError={(e) => {
+                        e.currentTarget.src = "/images/works(1).png";
+                      }}
+                    />
 
-                      <img
-                        src={project.image}
-                        alt={project.title}
-                        className="project-img"
-                        loading="lazy"
-                        onError={(e) => {
-                          e.currentTarget.src = "/images/works(1).png";
-                        }}
-                      />
-
-                      {/* =====================================
-                          PROJECT OVERLAY & PROPER VIEW BUTTON
-                      ====================================== */}
-
-                      {/* <div className="project-overlay">
-
-                        <div
-                          className="project-view-btn"
-                          aria-label={`View ${project.title}`}
-                        >
-                          <span className="project-view-text">View</span>
-                          <span className="project-view-arrow" aria-hidden="true">
-                            <svg width="14" height="14" viewBox="0 0 256 256" fill="currentColor">
-                              <path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z" />
-                            </svg>
-                          </span>
-                        </div>
-
-                      </div> */}
-
+                    {/* HOVER OVERLAY */}
+                    <div className="project-overlay">
+                      <span className="project-overlay-title">{project.title}</span>
+                      <span className="project-overlay-btn" aria-hidden="true">
+                        <svg width="13" height="13" viewBox="0 0 256 256" fill="currentColor">
+                          <path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z" />
+                        </svg>
+                      </span>
                     </div>
-                  </div>
-
-                  {/* =========================================
-                      PROJECT TITLE & META
-                  ========================================== */}
-
-                  <div className="project-info">
-
-                    <div className="project-text-content">
-                      <div className="project-title-track">
-                        <h4 className="project-title-text">
-                          {project.title}
-                        </h4>
-
-                        <h4
-                          className="
-                            project-title-text
-                            project-title-hover
-                          "
-                        >
-                          {project.title}
-                        </h4>
-                      </div>
-
-                      {/* {project.category && (
-                        <p className="project-category-tag">
-                          {project.category}
-                        </p>
-                      )} */}
-                    </div>
-
-                    <div className="project-corner-arrow" aria-hidden="true">
-                      <svg width="16" height="16" viewBox="0 0 256 256" fill="currentColor">
-                        <path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z" />
-                      </svg>
-                    </div>
-
                   </div>
 
                 </article>

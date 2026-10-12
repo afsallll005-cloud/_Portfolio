@@ -5,8 +5,9 @@
 
 .skills-section {
   position: relative;
+  z-index: 10;
   width: 100%;
-  padding: 80px 40px;
+  padding: 90px 0;
   background-color: #ffffff;
   color: #090a0c;
   display: flex;
@@ -16,8 +17,9 @@
 }
 
 .skills-container {
-  width: 100%;
+  width: 90%;
   max-width: 1500px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   gap: 40px;
@@ -145,7 +147,7 @@
 
 @media (max-width: 809px) {
   .skills-section {
-    padding: 60px 20px;
+    padding: 60px 0;
   }
 
   .skills-grid {

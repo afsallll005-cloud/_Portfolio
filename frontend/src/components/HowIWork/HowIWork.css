@@ -5,8 +5,9 @@
 
 .how-work-section {
   position: relative;
+  z-index: 10;
   width: 100%;
-  padding: 100px 40px;
+  padding: 100px 0;
   display: flex;
   justify-content: center;
   background-color: #ffffff;
@@ -16,8 +17,9 @@
 }
 
 .how-work-container {
-  width: 100%;
+  width: 90%;
   max-width: 1500px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   gap: 40px;
@@ -344,7 +346,7 @@
 /* MOBILE (<= 640px) */
 @media (max-width: 640px) {
   .how-work-section {
-    padding: 65px 20px;
+    padding: 65px 0;
   }
 
   .how-work-container {

@@ -1,7 +1,8 @@
 .footer-section {
   position: relative;
+  z-index: 10;
   width: 100%;
-  padding: 80px 40px 60px;
+  padding: 90px 0 60px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -10,8 +11,9 @@
 }
 
 .footer-container {
-  width: 100%;
+  width: 90%;
   max-width: 1500px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -328,7 +330,7 @@
 /* RESPONSIVE */
 @media (max-width: 809px) {
   .footer-section {
-    padding: 60px 20px 40px;
+    padding: 60px 0 40px;
   }
 
   .footer-container {

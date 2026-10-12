@@ -1,7 +1,8 @@
 .services-section {
   position: relative;
+  z-index: 10;
   width: 100%;
-  padding: 80px 40px;
+  padding: 90px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -10,8 +11,9 @@
 }
 
 .services-container {
-  width: 100%;
+  width: 90%;
   max-width: 1500px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   gap: 40px;
@@ -150,7 +152,7 @@
 /* RESPONSIVE */
 @media (max-width: 809px) {
   .services-section {
-    padding: 60px 20px;
+    padding: 60px 0;
   }
 
   .services-title {

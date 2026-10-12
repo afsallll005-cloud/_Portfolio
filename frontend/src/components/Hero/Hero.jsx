@@ -8,8 +8,8 @@ export default function Hero() {
   const [heroData, setHeroData] = useState({
     title: "MHD AFSAL",
     headline: "THE BEST WEBSITE DESIGNER &\nDEVELOPER IN CALICUT.",
-    desktopImage: "/images/glitchme.jpeg",
-    mobileImage: "/images/glitchme.jpeg",
+    desktopImage: "/images/Laptop-Hero.png",
+    mobileImage: "/images/Phone-Hero.png",
     image: "/images/glitchme.jpeg",
     phrase: "Best website designer in Calicut",
   });
@@ -64,6 +64,7 @@ export default function Hero() {
     let unlockTimer = null;
     let typingTimer = null;
     let resizeTimer = null;
+    let cleanupListeners = () => {};
 
     const loadScript = (src, globalKey) => {
       return new Promise((resolve) => {
@@ -146,7 +147,7 @@ export default function Hero() {
       }
       typeNext();
 
-      // Click to skip search intro immediately
+      // Click or touch to skip search intro immediately
       const handleSearchClick = () => {
         gsap.killTweensOf(search);
         gsap.to(search, {
@@ -156,6 +157,7 @@ export default function Hero() {
         });
       };
       search.addEventListener("click", handleSearchClick);
+      search.addEventListener("touchstart", handleSearchClick, { passive: true });
 
       gsap.to(search, {
         autoAlpha: 0,
@@ -167,37 +169,13 @@ export default function Hero() {
 
       const img = cover.querySelector("img");
 
-      function setCoverFixed() {
-        if (cover.parentElement !== document.body) {
-          document.body.appendChild(cover);
-        }
-        Object.assign(cover.style, {
-          position: "fixed",
-          left: "50vw",
-          top: "50vh",
-        });
-      }
-
-      function setCoverInFlow() {
-        if (cover.parentElement !== root) {
-          root.appendChild(cover);
-        }
-        Object.assign(cover.style, {
-          position: "absolute",
-          left: "50%",
-          top: "50%",
-        });
-      }
-
-      setCoverFixed();
-
       function getCoverScale() {
         const vw = window.innerWidth;
         const vh = window.innerHeight;
         const isMobile = vw <= 767;
-        const baseW = isMobile ? Math.min(vw * 0.88, 380) : Math.min(vw * 0.43, 760);
-        const baseH = isMobile ? Math.min(baseW * 1.25, vh * 0.46) : (baseW * 9) / 16;
-        return Math.max(vw / baseW, vh / baseH);
+        const baseW = isMobile ? Math.min(vw * 0.84, 340) : Math.min(vw * 0.43, 760);
+        const baseH = isMobile ? baseW * 1.25 : (baseW * 9) / 16;
+        return Math.max(vw / baseW, vh / baseH) * (isMobile ? 1.08 : 1.04);
       }
 
       let headlineShown = false;
@@ -209,11 +187,10 @@ export default function Hero() {
           tl = null;
         }
         headlineShown = false;
-        setCoverFixed();
         const isMobile = window.innerWidth <= 767;
         const fullScale = getCoverScale();
-        const splitDistance = Math.min(window.innerWidth * (isMobile ? 0.22 : 0.14), 210);
-        const startScale = isMobile ? 0.65 : 0.18;
+        const splitDistance = Math.min(window.innerWidth * (isMobile ? 0.35 : 0.14), 220);
+        const startScale = isMobile ? 0.72 : 0.18;
         const revealScale = isMobile ? 1.0 : 0.3;
 
         gsap.set(adil, { x: 0, opacity: 1 });
@@ -227,6 +204,8 @@ export default function Hero() {
           yPercent: -50,
           scale: startScale,
           opacity: 0,
+          borderRadius: isMobile ? 18 : 12,
+          borderWidth: 1,
         });
 
         tl = gsap.timeline({
@@ -243,8 +222,6 @@ export default function Hero() {
             anticipatePin: 1,
             invalidateOnRefresh: true,
             refreshPriority: 30,
-            onLeave: setCoverInFlow,
-            onEnterBack: setCoverFixed,
             onUpdate: function (self) {
               if (self.progress >= 0.38 && !headlineShown) {
                 headlineShown = true;
@@ -272,14 +249,23 @@ export default function Hero() {
         tl.to(adil, { x: -splitDistance, duration: 0.18 }, 0);
         tl.to(bilal, { x: splitDistance, duration: 0.18 }, 0);
         tl.to(cover, { opacity: 1, scale: revealScale, duration: 0.05 }, 0.02);
-        tl.to(cover, { scale: fullScale, duration: 0.3 }, 0.08);
+        tl.to(
+          cover,
+          {
+            scale: fullScale,
+            borderRadius: 0,
+            borderWidth: 0,
+            duration: 0.3,
+          },
+          0.08
+        );
         tl.to(adil, { opacity: 0, duration: 0.1 }, 0.22);
         tl.to(bilal, { opacity: 0, duration: 0.1 }, 0.22);
         if (siteHeader) {
           tl.to(
             siteHeader,
             { opacity: 1, pointerEvents: "auto", duration: 0.14 },
-            0.46
+            isMobile ? 0.82 : 0.58
           );
         }
         tl.to(cover, { scale: fullScale, duration: 0.54 }, 0.46);
@@ -312,7 +298,10 @@ export default function Hero() {
         init();
       }
 
+      let lastWidth = typeof window !== "undefined" ? window.innerWidth : 0;
       const handleResize = () => {
+        if (window.innerWidth === lastWidth) return;
+        lastWidth = window.innerWidth;
         clearTimeout(resizeTimer);
         resizeTimer = setTimeout(function () {
           buildTimeline();
@@ -320,6 +309,12 @@ export default function Hero() {
         }, 220);
       };
       window.addEventListener("resize", handleResize, { passive: true });
+
+      cleanupListeners = () => {
+        search.removeEventListener("click", handleSearchClick);
+        search.removeEventListener("touchstart", handleSearchClick);
+        window.removeEventListener("resize", handleResize);
+      };
     };
 
     // Load GSAP + ScrollTrigger from CDN
@@ -335,6 +330,7 @@ export default function Hero() {
       clearTimeout(unlockTimer);
       clearTimeout(typingTimer);
       clearTimeout(resizeTimer);
+      cleanupListeners();
       document.documentElement.classList.remove("ab-scroll-locked");
       document.body.classList.remove("ab-scroll-locked");
       if (tl) {
@@ -343,10 +339,6 @@ export default function Hero() {
       }
       if (window.ScrollTrigger) {
         window.ScrollTrigger.getAll().forEach((t) => t.kill());
-      }
-      const cover = document.getElementById("abCenterCover");
-      if (cover && cover.parentElement === document.body) {
-        document.body.removeChild(cover);
       }
     };
   }, [heroData.phrase]);
@@ -371,9 +363,7 @@ export default function Hero() {
   const matchAccent = lastLine.match(/(.*?\bIN\s+)?([A-Za-z0-9_-]+)(\.?)?$/i);
 
   return (
-    <>
-      {/* 1. HERO SECTION PINNED BY GSAP */}
-      <section
+    <section
         id="abHero"
         aria-label={`${firstWord} ${secondWord}, Best Website Designer in Calicut — hero section`}
       >
@@ -419,39 +409,38 @@ export default function Hero() {
               )}
             </h1>
           </div>
+
+          {/* 2. CENTER COVER IMAGE (ANIMATED BY GSAP TIMELINE ON SCROLL) */}
+          <div id="abCenterCover">
+            <picture>
+              <source
+                media="(max-width: 767px)"
+                srcSet={heroData.mobileImage || heroData.image || "/images/glitchme.jpeg"}
+              />
+              <source
+                media="(min-width: 768px)"
+                srcSet={heroData.desktopImage || heroData.image || "/images/glitchme.jpeg"}
+              />
+              <img
+                src={heroData.desktopImage || heroData.image || "/images/glitchme.jpeg"}
+                alt={`${firstWord} ${secondWord} — Best Website Designer in Calicut`}
+                fetchPriority="high"
+                decoding="async"
+                onError={(e) => {
+                  const target = e.currentTarget;
+                  if (!target.dataset.tried) {
+                    target.dataset.tried = "1";
+                    target.src = "/images/glitchme.jpeg";
+                  } else if (target.dataset.tried === "1") {
+                    target.dataset.tried = "2";
+                    target.src =
+                      "https://bilalgrowth.com/wp-content/uploads/2026/09/best-digital-marketing-strategist-calicut-2.webp";
+                  }
+                }}
+              />
+            </picture>
+          </div>
         </div>
       </section>
-
-      {/* 2. CENTER COVER IMAGE (ANIMATED BY GSAP TIMELINE ON SCROLL) */}
-      <div id="abCenterCover">
-        <picture>
-          <source
-            media="(max-width: 767px)"
-            srcSet={heroData.mobileImage || heroData.image || "/images/glitchme.jpeg"}
-          />
-          <source
-            media="(min-width: 768px)"
-            srcSet={heroData.desktopImage || heroData.image || "/images/glitchme.jpeg"}
-          />
-          <img
-            src={heroData.desktopImage || heroData.image || "/images/glitchme.jpeg"}
-            alt={`${firstWord} ${secondWord} — Best Website Designer in Calicut`}
-            fetchPriority="high"
-            decoding="async"
-            onError={(e) => {
-              const target = e.currentTarget;
-              if (!target.dataset.tried) {
-                target.dataset.tried = "1";
-                target.src = "/images/glitchme.jpeg";
-              } else if (target.dataset.tried === "1") {
-                target.dataset.tried = "2";
-                target.src =
-                  "https://bilalgrowth.com/wp-content/uploads/2026/09/best-digital-marketing-strategist-calicut-2.webp";
-              }
-            }}
-          />
-        </picture>
-      </div>
-    </>
   );
 }
