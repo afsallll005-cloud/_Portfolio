@@ -390,7 +390,8 @@ export default function Works() {
                   className="modal-btn-primary"
                   onClick={closeModal}
                 >
-                  Discuss Project
+                  <span>Discuss Project</span>
+                  <span className="modal-btn-arrow" aria-hidden="true">→</span>
                 </a>
 
 
@@ -402,15 +403,10 @@ export default function Works() {
                       href={selectedProject.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="modal-btn-primary"
-                      style={{
-                        backgroundColor: "transparent",
-                        border:
-                          "1px solid rgba(255, 255, 255, 0.3)",
-                        color: "#ffffff",
-                      }}
+                      className="modal-btn-secondary"
                     >
-                      Visit Live Site ↗
+                      <span>Visit Live Site</span>
+                      <span className="modal-btn-arrow" aria-hidden="true">↗</span>
                     </a>
                   )}
 
