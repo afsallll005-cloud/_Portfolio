@@ -11,7 +11,7 @@ export default function About() {
       "I’m a designer focused on Website Design, Digital Product Design, and No-Code Development. I help individuals and businesses bring ideas to life through clean, modern, and functional design.",
     paragraph2:
       "With a strong eye for detail and a user-first mindset, I create websites and digital products that not only look great but also work seamlessly — combining aesthetic simplicity with exceptional performance.",
-    image: "https://framerusercontent.com/images/Lwf11bejG2ckx3QD9tlBaUP3kE.jpg",
+    image: "./images/mee(1).png",
     resumeText: "View Resume",
     resumeLink: "#contact",
     resumeFile: "",
@@ -166,12 +166,12 @@ export default function About() {
           <div className="about-right">
             <figure className="about-image-figure">
               <img
-                src={aboutData.image || "https://framerusercontent.com/images/Lwf11bejG2ckx3QD9tlBaUP3kE.jpg"}
+                src={aboutData.image || "./images/mee(1).png"}
                 alt={aboutData.heading || "About Me Portrait"}
                 className="about-portrait-img"
                 loading="lazy"
                 onError={(e) => {
-                  e.currentTarget.src = "https://framerusercontent.com/images/Lwf11bejG2ckx3QD9tlBaUP3kE.jpg";
+                  e.currentTarget.src = "./images/mee(1).png"; // Fallback image if the provided image fails to load
                 }}
               />
             </figure>
