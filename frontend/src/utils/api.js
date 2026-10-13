@@ -41,4 +41,5 @@ const resolveApiBaseUrl = () => {
 };
 
 export const API_BASE_URL = resolveApiBaseUrl();
+export { DEFAULT_PRODUCTION_BACKEND };
 

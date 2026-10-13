@@ -8,18 +8,27 @@ export default function Projects() {
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
+    let isMounted = true;
     const fetchProjects = async () => {
       try {
         const res = await fetch(`${API_BASE_URL}/projects`);
-        const data = await res.json();
-        const featured = data.filter(p => p.isFeatured).slice(0, 3);
-        setProjects(featured.length > 0 ? featured : data.slice(0, 3));
+        if (res.ok) {
+          const data = await res.json();
+          if (isMounted && Array.isArray(data)) {
+            const featured = data.filter((p) => p.isFeatured).slice(0, 3);
+            setProjects(featured.length > 0 ? featured : data.slice(0, 3));
+          }
+        }
       } catch (error) {
-        console.error("Failed to fetch projects", error);
+        console.warn("Could not fetch projects from backend:", error);
       }
     };
     
     fetchProjects();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   return (

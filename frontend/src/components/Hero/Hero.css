@@ -250,15 +250,16 @@ body.ab-scroll-locked {
     text-shadow: 0 3px 20px rgba(0, 0, 0, 0.9);
   }
   #abCenterCover {
-    width: min(84vw, 340px);
-    aspect-ratio: 4 / 5;
+    width: min(76vw, 310px);
+    aspect-ratio: 1 / 1.45;
     border-radius: 18px;
     border: 1px solid rgba(255, 255, 255, 0.18);
     box-shadow: 0 20px 48px rgba(0, 0, 0, 0.65);
   }
   #abCenterCover img {
     object-fit: cover;
-    object-position: center 25%;
+    object-position: center top;
+    image-rendering: -webkit-optimize-contrast;
   }
 }
 
@@ -284,7 +285,8 @@ body.ab-scroll-locked {
     line-height: 1.16;
   }
   #abCenterCover {
-    width: 86vw;
+    width: min(80vw, 280px);
+    aspect-ratio: 1 / 1.45;
     border-radius: 14px;
   }
 }

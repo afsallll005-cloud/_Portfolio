@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { API_BASE_URL } from "@/utils/api";
+import { API_BASE_URL, DEFAULT_PRODUCTION_BACKEND } from "@/utils/api";
 import "./About.css";
 
 export default function About() {
@@ -22,22 +22,49 @@ export default function About() {
   });
 
   useEffect(() => {
-    fetch(`${API_BASE_URL}/about`)
-      .then((res) => {
-        if (!res.ok) throw new Error("Failed to fetch");
-        return res.json();
-      })
-      .then((data) => {
-        if (data && !data.message) {
-          setAboutData((prev) => ({
-            ...prev,
-            ...data,
-          }));
+    let isMounted = true;
+
+    const fetchAbout = async () => {
+      try {
+        const res = await fetch(`${API_BASE_URL}/about`);
+        if (res.ok) {
+          const data = await res.json();
+          if (isMounted && data && !data.message) {
+            setAboutData((prev) => ({
+              ...prev,
+              ...data,
+            }));
+            return;
+          }
         }
-      })
-      .catch((err) => {
-        console.error("About fetch error:", err);
-      });
+      } catch (err) {
+        // If local backend is down, attempt fallback to production backend
+        if (API_BASE_URL && API_BASE_URL.includes("localhost") && DEFAULT_PRODUCTION_BACKEND) {
+          try {
+            const fallbackRes = await fetch(`${DEFAULT_PRODUCTION_BACKEND}/about`);
+            if (fallbackRes.ok) {
+              const fallbackData = await fallbackRes.json();
+              if (isMounted && fallbackData && !fallbackData.message) {
+                setAboutData((prev) => ({
+                  ...prev,
+                  ...fallbackData,
+                }));
+                return;
+              }
+            }
+          } catch {
+            // Silently fall back to default state
+          }
+        }
+        console.warn("Could not fetch about data from backend, using default data.", err);
+      }
+    };
+
+    fetchAbout();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   const hasResumeFile = Boolean(aboutData.resumeFile);
