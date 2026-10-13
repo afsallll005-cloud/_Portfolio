@@ -326,11 +326,14 @@
 
 .project-modal-content {
   width: 100%;
-  max-width: 860px;
-  max-height: 90vh;
+  max-width: 1060px;
+  max-height: 86vh;
+  min-height: 520px;
   position: relative;
-  overflow-y: auto;
-  overflow-x: hidden;
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  align-items: stretch;
+  overflow: hidden;
   background-color: #ffffff;
   border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 10px;
@@ -339,25 +342,6 @@
     0 0 0 1px rgba(0, 0, 0, 0.03),
     0 1px 3px rgba(0, 0, 0, 0.05);
   animation: modernModalEnter 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  scrollbar-width: thin;
-  scrollbar-color: rgba(0, 0, 0, 0.18) transparent;
-}
-
-.project-modal-content::-webkit-scrollbar {
-  width: 6px;
-}
-
-.project-modal-content::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.project-modal-content::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.16);
-  border-radius: 10px;
-}
-
-.project-modal-content::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 0, 0, 0.3);
 }
 
 /* =========================================================
@@ -368,14 +352,14 @@
   width: 42px;
   height: 42px;
   position: absolute;
-  top: 20px;
-  right: 20px;
-  z-index: 20;
+  top: 18px;
+  right: 18px;
+  z-index: 30;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.88);
+  background: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border: 1px solid rgba(0, 0, 0, 0.08);
@@ -403,18 +387,19 @@
 }
 
 /* =========================================================
-   MODAL IMAGE PRESENTATION
+   MODAL IMAGE PRESENTATION (LEFT COLUMN IN LAPTOP)
 ========================================================= */
 
 .modal-img-wrapper {
   width: 100%;
-  aspect-ratio: 16 / 10;
-  min-height: 340px;
-  max-height: 400px;
+  height: 100%;
+  min-height: 100%;
+  max-height: none;
+  aspect-ratio: unset;
   position: relative;
   overflow: hidden;
   background-color: #0c0e12;
-  border-radius: 10px 10px 0 0;
+  border-radius: 10px 0 0 10px;
 }
 
 .modal-img-wrapper::after {
@@ -443,16 +428,40 @@
 }
 
 /* =========================================================
-   MODAL DETAILS BODY
+   MODAL DETAILS BODY (RIGHT COLUMN IN LAPTOP)
 ========================================================= */
 
 .modal-details {
-  padding: 36px 42px 42px;
+  padding: 42px 42px 38px;
   display: flex;
   flex-direction: column;
   gap: 16px;
   background: #ffffff;
+  border-radius: 0 10px 10px 0;
   box-sizing: border-box;
+  height: 100%;
+  max-height: 86vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.16) transparent;
+}
+
+.modal-details::-webkit-scrollbar {
+  width: 5px;
+}
+
+.modal-details::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.modal-details::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.16);
+  border-radius: 10px;
+}
+
+.modal-details::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3);
 }
 
 /* =========================================================
@@ -571,7 +580,7 @@
 ========================================================= */
 
 .modal-actions {
-  margin-top: 16px;
+  margin-top: auto;
   padding-top: 24px;
   border-top: 1px solid rgba(0, 0, 0, 0.07);
   display: flex;
@@ -733,14 +742,35 @@
     border-radius: 6px;
   }
 
+  /* MODAL IN TABLET: SINGLE COLUMN STACK */
+  .project-modal-content {
+    grid-template-columns: 1fr;
+    max-width: 640px;
+    max-height: 90vh;
+    min-height: auto;
+    overflow-y: auto;
+    border-radius: 10px;
+  }
+
   .modal-img-wrapper {
-    aspect-ratio: 16 / 10;
-    min-height: 320px;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 11;
+    min-height: 340px;
     max-height: 440px;
+    border-radius: 10px 10px 0 0;
+  }
+
+  .modal-details {
+    height: auto;
+    max-height: none;
+    overflow-y: visible;
+    padding: 32px 30px 36px;
+    border-radius: 0 0 10px 10px;
   }
 }
 
-/* MOBILE (2 COLUMNS - CLEAN POSTER GRID) */
+/* MOBILE (CLEAN POSTER GRID & EXPANDED IMAGE HEIGHT) */
 @media (max-width: 640px) {
   .works-section {
     padding: 55px 0 70px;
@@ -801,8 +831,11 @@
   }
 
   .project-modal-content {
+    grid-template-columns: 1fr;
     border-radius: 10px;
-    max-height: 90vh;
+    max-height: 92vh;
+    min-height: auto;
+    overflow-y: auto;
   }
 
   .modal-close-btn {
@@ -812,16 +845,23 @@
     height: 38px;
   }
 
+  /* INCREASED IMAGE HEIGHT ON MOBILE */
   .modal-img-wrapper {
-    aspect-ratio: 16 / 11;
-    min-height: 280px;
-    max-height: 380px;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    min-height: 330px;
+    max-height: 420px;
     border-radius: 10px 10px 0 0;
   }
 
   .modal-details {
     padding: 24px 20px 28px;
     gap: 14px;
+    height: auto;
+    max-height: none;
+    overflow-y: visible;
+    border-radius: 0 0 10px 10px;
   }
 
   .modal-title {
@@ -838,6 +878,7 @@
     flex-direction: column;
     width: 100%;
     gap: 10px;
+    margin-top: 16px;
   }
 
   .modal-btn-primary,
@@ -864,8 +905,9 @@
 
   .modal-img-wrapper {
     aspect-ratio: 4 / 3;
-    min-height: 240px;
-    max-height: 320px;
+    min-height: 290px;
+    max-height: 360px;
+    border-radius: 10px 10px 0 0;
   }
 }
 

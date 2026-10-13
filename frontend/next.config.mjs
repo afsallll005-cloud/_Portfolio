@@ -16,6 +16,14 @@ const nextConfig = {
   async rewrites() {
     return [
       {
+        source: "/favicon.ico",
+        destination: "/images/logo.png",
+      },
+      {
+        source: "/logo.png",
+        destination: "/images/logo.png",
+      },
+      {
         source: "/api/:path*",
         destination: "https://portfolio-nu-ten-27.vercel.app/api/:path*",
       },

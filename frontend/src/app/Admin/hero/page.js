@@ -31,10 +31,10 @@ export default function HeroAdmin() {
 
   const [formData, setFormData] = useState({
     title: "MHDAFSAL",
-    subtitle: "THE BEST WEBSITE DESIGNER &\nDEVELOPER IN CALICUT.",
+    subtitle: "THE BEST WEBSITE DESIGNER &\nDEVELOPER IN MALAPPURAM.",
     desktopImage: "./images/glitchme.jpeg",
     mobileImage: "./images/glitchme.jpeg",
-    searchPhrase: "Best website designer in Calicut",
+    searchPhrase: "Best website designer in Malappuram",
   });
 
   useEffect(() => {
@@ -49,10 +49,10 @@ export default function HeroAdmin() {
         if (data && !data.message) {
           setFormData({
             title: data.title || "MHDAFSAL",
-            subtitle: data.subtitle || "THE BEST WEBSITE DESIGNER &\nDEVELOPER IN CALICUT.",
+            subtitle: data.subtitle || "THE BEST WEBSITE DESIGNER &\nDEVELOPER IN MALAPPURAM.",
             desktopImage: data.desktopImage || data.image || "./images/glitchme.jpeg",
             mobileImage: data.mobileImage || data.desktopImage || data.image || "./images/glitchme.jpeg",
-            searchPhrase: data.searchPhrase || "Best website designer in Calicut",
+            searchPhrase: data.searchPhrase || "Best website designer in Malappuram",
           });
         }
       }
@@ -220,7 +220,7 @@ export default function HeroAdmin() {
                 rows="3"
                 value={formData.subtitle}
                 onChange={handleChange}
-                placeholder="e.g. THE BEST WEBSITE DESIGNER &\nDEVELOPER IN CALICUT."
+                placeholder="e.g. THE BEST WEBSITE DESIGNER &\nDEVELOPER IN MALAPPURAM."
                 required
               />
               <span className="form-hint">Displayed in bold Clash Display typography during the scroll zoom</span>
@@ -234,7 +234,7 @@ export default function HeroAdmin() {
                 className="form-input"
                 value={formData.searchPhrase || ""}
                 onChange={handleChange}
-                placeholder="e.g. Best website designer in Calicut"
+                placeholder="e.g. Best website designer in Malappuram"
               />
               <span className="form-hint">Typed in the Google search bar overlay on page load</span>
             </div>

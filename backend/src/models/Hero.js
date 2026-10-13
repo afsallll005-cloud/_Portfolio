@@ -30,7 +30,7 @@ const heroSchema = new mongoose.Schema(
     },
     searchPhrase: {
       type: String,
-      default: 'Best website designer in Calicut',
+      default: 'Best website designer in Malappuram',
     },
     stat1Value: {
       type: String,

@@ -7,11 +7,11 @@ import "./Hero.css";
 export default function Hero() {
   const [heroData, setHeroData] = useState({
     title: "MHD AFSAL",
-    headline: "THE BEST WEBSITE DESIGNER &\nDEVELOPER IN CALICUT.",
+    headline: "THE BEST WEBSITE DESIGNER &\nDEVELOPER IN MALAPPURAM.",
     desktopImage: "/images/Laptop-Hero.png",
     mobileImage: "/images/Phone-Hero.png",
     image: "/images/glitchme.jpeg",
-    phrase: "Best website designer in Calicut",
+    phrase: "Best website designer in Malappuram",
   });
 
   // Fetch dynamic hero data from backend
@@ -41,11 +41,11 @@ export default function Hero() {
               headline:
                 data.subtitle && !data.subtitle.includes("I’m Specialized")
                   ? data.subtitle
-                  : "THE BEST WEBSITE DESIGNER &\nDEVELOPER IN CALICUT.",
+                  : "THE BEST WEBSITE DESIGNER &\nDEVELOPER IN MALAPPURAM.",
               desktopImage: desktopImg,
               mobileImage: mobileImg,
               image: desktopImg,
-              phrase: data.searchPhrase || "Best website designer in Calicut",
+              phrase: data.searchPhrase || "Best website designer in Malappuram",
             });
           }
         }
@@ -135,7 +135,7 @@ export default function Hero() {
       unlockTimer = setTimeout(unlockScroll, 5200);
 
       // Typing animation
-      const phrase = heroData.phrase || "Best website designer in Calicut";
+      const phrase = heroData.phrase || "Best website designer in Malappuram";
       let i = 0;
       function typeNext() {
         if (isCancelled) return;
@@ -357,7 +357,7 @@ export default function Hero() {
   }
 
   // Parse headline
-  const headlineText = heroData.headline || "THE BEST WEBSITE DESIGNER &\nDEVELOPER IN CALICUT.";
+  const headlineText = heroData.headline || "THE BEST WEBSITE DESIGNER &\nDEVELOPER IN MALAPPURAM.";
   const lines = headlineText.split("\n");
   const lastLine = lines[lines.length - 1];
   const matchAccent = lastLine.match(/(.*?\bIN\s+)?([A-Za-z0-9_-]+)(\.?)?$/i);
@@ -365,7 +365,7 @@ export default function Hero() {
   return (
     <section
         id="abHero"
-        aria-label={`${firstWord} ${secondWord}, Best Website Designer in Calicut — hero section`}
+        aria-label={`${firstWord} ${secondWord}, Best Website Designer in Malappuram — hero section`}
       >
         <div className="viewport">
           {/* SEARCH INTRO */}
@@ -423,7 +423,7 @@ export default function Hero() {
               />
               <img
                 src={heroData.desktopImage || heroData.image || "/images/glitchme.jpeg"}
-                alt={`${firstWord} ${secondWord} — Best Website Designer in Calicut`}
+                alt={`${firstWord} ${secondWord} — Best Website Designer in Malappuram`}
                 fetchPriority="high"
                 decoding="async"
                 onError={(e) => {
