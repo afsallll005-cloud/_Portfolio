@@ -19,8 +19,13 @@ import "./admin.css";
 
 export default function AdminLayout({ children }) {
   const pathname = usePathname();
+  const [isMounted, setIsMounted] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const mainRef = useRef(null);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   // Close mobile sidebar and reset scroll on route change
   useEffect(() => {
@@ -30,8 +35,20 @@ export default function AdminLayout({ children }) {
     }
   }, [pathname]);
 
-  // Clean path calculation for active link detection
-  const cleanPath = (pathname || "").split("?")[0].replace(/\/+$/, "").toLowerCase();
+  // Clean path calculation for active link detection (client-safe)
+  const cleanPath =
+    isMounted && pathname
+      ? pathname.split("?")[0].replace(/\/+$/, "").toLowerCase()
+      : "";
+
+  const isItemActive = (targetHref) => {
+    if (!isMounted || !cleanPath) return false;
+    const cleanTarget = targetHref.toLowerCase().replace(/\/+$/, "");
+    if (cleanTarget === "/admin") {
+      return cleanPath === "/admin";
+    }
+    return cleanPath === cleanTarget || cleanPath.startsWith(cleanTarget + "/");
+  };
 
   const navItems = [
     { name: "Dashboard", href: "/Admin", icon: <FiGrid /> },
@@ -100,13 +117,9 @@ export default function AdminLayout({ children }) {
           <div className="admin-nav-section-title">Navigation</div>
 
           {/* Navigation Links */}
-          <nav className="admin-nav" aria-label="Admin Navigation">
+          <nav className="admin-nav" aria-label="Admin Navigation" suppressHydrationWarning>
             {navItems.map((item) => {
-              const cleanTarget = item.href.toLowerCase().replace(/\/+$/, "");
-              const isActive =
-                cleanTarget === "/admin"
-                  ? cleanPath === "/admin" || cleanPath === ""
-                  : cleanPath === cleanTarget || cleanPath.startsWith(cleanTarget + "/");
+              const isActive = isItemActive(item.href);
 
               return (
                 <Link
@@ -114,6 +127,7 @@ export default function AdminLayout({ children }) {
                   href={item.href}
                   className={`admin-nav-item ${isActive ? "active" : ""}`}
                   onClick={() => setMobileOpen(false)}
+                  suppressHydrationWarning
                 >
                   <span className="admin-nav-icon">{item.icon}</span>
                   <span className="admin-nav-label">{item.name}</span>

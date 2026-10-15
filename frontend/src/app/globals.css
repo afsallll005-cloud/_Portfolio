@@ -49,8 +49,8 @@
   --accent-blue: #2467e3;
   --accent-orange: #ff6b00;
   --font-switzer: "Switzer", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-clash: "Clash Display", sans-serif;
-  --font-inter: var(--font-geist-sans), "Inter", sans-serif;
+  --font-clash: var(--font-switzer);
+  --font-inter: var(--font-switzer);
 }
 
 html.ab-scroll-locked,
@@ -59,10 +59,13 @@ body.ab-scroll-locked {
   height: 100% !important;
 }
 
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  font-family: var(--font-switzer);
 }
 
 html {
@@ -84,6 +87,16 @@ body {
   max-width: 100%;
   overflow-x: hidden;
   position: relative;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-switzer);
+  font-weight: 600;
 }
 
 ::selection {

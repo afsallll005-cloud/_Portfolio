@@ -116,7 +116,10 @@ export default function HowIWork() {
         {/* HEADER */}
         <div className="how-work-header">
           <div className="how-work-header-text">
-            <p className="how-work-eyebrow">MY PROCESS</p>
+            <div className="how-work-eyebrow">
+              <span className="how-work-eyebrow-line" aria-hidden="true" />
+              <span className="how-work-eyebrow-text">MY PROCESS</span>
+            </div>
             <h2 className="how-work-title">How I Work</h2>
             <p className="how-work-description">
               A structured, user-centric process that turns ideas into high-performing,

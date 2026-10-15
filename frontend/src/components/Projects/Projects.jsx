@@ -43,9 +43,10 @@ export default function Projects() {
 
         <div>
 
-          <span className="section-label">
-            SELECTED WORK
-          </span>
+          <div className="projects-eyebrow">
+            <span className="projects-eyebrow-line" aria-hidden="true" />
+            <span className="projects-eyebrow-text">SELECTED WORK</span>
+          </div>
 
           <h2>
             PROJECTS

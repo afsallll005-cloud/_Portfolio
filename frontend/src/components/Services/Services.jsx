@@ -46,6 +46,10 @@ export default function Services() {
       <div className="services-container">
         {/* SECTION TITLE */}
         <div className="services-title-wrapper">
+          <div className="services-eyebrow">
+            <span className="services-eyebrow-line" aria-hidden="true" />
+            <span className="services-eyebrow-text">SERVICES</span>
+          </div>
           <h2 className="services-title">My Services</h2>
         </div>
 

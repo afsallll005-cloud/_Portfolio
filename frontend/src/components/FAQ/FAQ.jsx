@@ -48,6 +48,10 @@ export default function FAQ() {
       <div className="faq-container">
         {/* LEFT COLUMN: TITLE */}
         <div className="faq-left">
+          <div className="faq-eyebrow">
+            <span className="faq-eyebrow-line" aria-hidden="true" />
+            <span className="faq-eyebrow-text">FAQS</span>
+          </div>
           <h2 className="faq-title">Common Questions</h2>
         </div>
 

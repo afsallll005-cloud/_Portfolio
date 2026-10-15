@@ -38,6 +38,10 @@ export default function Skills() {
     <section className="skills-section" id="skills">
       <div className="skills-container">
         <div className="skills-header">
+          <div className="skills-eyebrow">
+            <span className="skills-eyebrow-line" aria-hidden="true" />
+            <span className="skills-eyebrow-text">SKILLS</span>
+          </div>
           <h2 className="skills-title">Skills & Capabilities</h2>
           <p className="skills-subtitle">
             A breakdown of my technical stack, creative tools, and core design competencies.

@@ -45,26 +45,39 @@
 .how-work-header-text {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 16px;
   max-width: 680px;
 }
 
 .how-work-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
   margin: 0;
-  font-family: var(--font-switzer, inherit);
+}
+
+.how-work-eyebrow-line {
+  display: inline-block;
+  width: 34px;
+  height: 2px;
+  background-color: #090a0c;
+}
+
+.how-work-eyebrow-text {
+  font-family: var(--font-switzer);
   font-size: 13px;
   font-weight: 600;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: #64748b;
+  color: #090a0c;
 }
 
 .how-work-title {
   margin: 0;
-  font-family: var(--font-switzer, inherit);
-  font-size: clamp(38px, 4.8vw, 56px);
+  font-family: var(--font-switzer);
+  font-size: clamp(34px, 4.4vw, 54px);
   font-weight: 600;
-  line-height: 1.05;
+  line-height: 1.15;
   letter-spacing: -1.2px;
   color: #090a0c;
 }

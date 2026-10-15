@@ -90,8 +90,8 @@
   align-items: center;
   justify-content: center;
   white-space: nowrap;
-  font-family: "Inter", sans-serif;
-  font-weight: 800;
+  font-family: var(--font-switzer);
+  font-weight: 700;
   font-size: clamp(58px, 9.2vw, 154px);
   line-height: 0.82;
   letter-spacing: -0.02em;
@@ -131,11 +131,11 @@
 #abHero .headline-layer h1 {
   margin: 0;
   text-align: center;
-  font-family: "Clash Display", sans-serif;
+  font-family: var(--font-switzer);
   font-weight: 600;
   font-size: clamp(28px, 4.6vw, 64px);
   line-height: 1.06;
-  letter-spacing: -0.01em;
+  letter-spacing: -1.2px;
   color: #ffffff;
   text-shadow: 0 4px 28px rgba(0, 0, 0, 0.85), 0 1px 4px rgba(0, 0, 0, 0.9);
 }
