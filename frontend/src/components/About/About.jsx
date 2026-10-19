@@ -11,7 +11,7 @@ const initialAboutData = {
     "I'm a Full Stack Developer, recently completed the Full Stack Web Development course at the G-TEC Center of Excellence. I build modern, responsive and user-friendly web applications using the MERN stack and love turning ideas into real products.",
   paragraph2:
     "Through projects and a 2-month internship at globaOne, I've gained hands-on experience, improved my problem-solving skills and grown in real-world web development.",
-  image: "/images/mee(1).png",
+  image: "/images/portfolioImg.png",
   resumeText: "View Resume",
   resumeLink: "#contact",
   resumeFile: "",
@@ -57,7 +57,18 @@ export default function About() {
         }
 
         if (isMounted && data && !data.message) {
-          setAboutData((prev) => ({ ...prev, ...data }));
+          const isBlackBgPlaceholder =
+            typeof data.image === "string" &&
+            (data.image.includes("framerusercontent.com") ||
+             data.image.includes("Lwf11"));
+
+          setAboutData((prev) => ({
+            ...prev,
+            ...data,
+            image: isBlackBgPlaceholder
+              ? "/images/mee(1).png"
+              : data.image || "/images/mee(1).png",
+          }));
         }
       } catch (error) {
         console.warn(
@@ -269,7 +280,11 @@ export default function About() {
 
             <figure className="about-image-figure">
               <img
-                src={aboutData.image || "/images/mee(1).png"}
+                src={
+                  aboutData.image && !aboutData.image.includes("framerusercontent.com")
+                    ? aboutData.image
+                    : "/images/mee(1).png"
+                }
                 alt="Mohammed Afsal - Full Stack Developer"
                 className="about-portrait-img"
                 loading="lazy"

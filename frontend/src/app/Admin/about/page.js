@@ -32,7 +32,7 @@ export default function AboutAdmin() {
       "I’m a designer focused on Website Design, Digital Product Design, and No-Code Development. I help individuals and businesses bring ideas to life through clean, modern, and functional design.",
     paragraph2:
       "With a strong eye for detail and a user-first mindset, I create websites and digital products that not only look great but also work seamlessly — combining aesthetic simplicity with exceptional performance.",
-    image: "https://framerusercontent.com/images/Lwf11bejG2ckx3QD9tlBaUP3kE.jpg",
+    image: "/images/mee(1).png",
     resumeText: "View Resume",
     resumeLink: "#contact",
     resumeFile: "",
@@ -56,7 +56,10 @@ export default function AboutAdmin() {
             heading: data.heading || "About Me",
             paragraph1: data.paragraph1 || "",
             paragraph2: data.paragraph2 || "",
-            image: data.image || "https://framerusercontent.com/images/Lwf11bejG2ckx3QD9tlBaUP3kE.jpg",
+            image:
+              data.image && !data.image.includes("framerusercontent.com")
+                ? data.image
+                : "/images/mee(1).png",
             resumeText: data.resumeText || "View Resume",
             resumeLink: data.resumeLink || "#contact",
             resumeFile: data.resumeFile || "",
@@ -457,8 +460,7 @@ export default function AboutAdmin() {
                       border: "1px solid #1f222a",
                     }}
                     onError={(e) => {
-                      e.currentTarget.src =
-                        "https://framerusercontent.com/images/Lwf11bejG2ckx3QD9tlBaUP3kE.jpg";
+                      e.currentTarget.src = "/images/mee(1).png";
                     }}
                   />
                   <div>

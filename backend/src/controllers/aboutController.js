@@ -15,7 +15,7 @@ const getAbout = async (req, res) => {
           'I’m a designer focused on Website Design, Digital Product Design, and No-Code Development. I help individuals and businesses bring ideas to life through clean, modern, and functional design.',
         paragraph2:
           'With a strong eye for detail and a user-first mindset, I create websites and digital products that not only look great but also work seamlessly — combining aesthetic simplicity with exceptional performance.',
-        image: 'https://framerusercontent.com/images/Lwf11bejG2ckx3QD9tlBaUP3kE.jpg',
+        image: '/images/mee(1).png',
         resumeText: 'View Resume',
         resumeLink: '#contact',
         resumeFile: '',

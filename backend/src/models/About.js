@@ -18,7 +18,7 @@ const aboutSchema = new mongoose.Schema(
     },
     image: {
       type: String,
-      default: 'https://framerusercontent.com/images/Lwf11bejG2ckx3QD9tlBaUP3kE.jpg',
+      default: '/images/mee(1).png',
     },
     resumeText: {
       type: String,
